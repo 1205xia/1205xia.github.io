@@ -245,11 +245,52 @@
     .proj-grid,.str-grid,.content-grid,.about,.foot-grid{grid-template-columns:1fr}
     .navlinks{display:none}
     .container{padding:0 18px}
-    .radial{transform:scale(.78)}
+  }
+  /* —— 手机端（≤768px）：核心是把 TAP ME 项目扇从“四散扇形”改成“屏幕内竖向展开” ——
+     桌面端（>768px）完全不受影响，以下规则仅在小屏生效。 */
+  @media(max-width:768px){
+    /* radial：放弃 580px 绝对定位扇形，改为正常竖向 flex 流，卡片永远在屏幕内 */
+    .radial{
+      width:auto;height:auto;
+      display:flex;flex-direction:column;align-items:center;gap:14px;
+      transform:none;margin:36px auto 8px;
+    }
+    .radial-core{
+      position:static;top:auto;left:auto;
+      transform:none;width:148px;height:148px;font-size:16px;
+    }
+    /* 展开态：仅旋转 + 变色，不再用 translate(-50%,-50%) 居中（手机上是普通流） */
+    .radial.open .radial-core{transform:rotate(45deg);background:#000;color:var(--accent)}
+    /* 项目卡：closed 折叠（max-height:0 + border-width:0）不占位、不露黑边；open 展开到屏幕内 */
+    .radial-item{
+      position:static;top:auto;left:auto;
+      width:100%;max-width:340px;height:auto;
+      opacity:0;pointer-events:none;overflow:hidden;
+      max-height:0;border-width:0;margin:0 auto;padding:0;
+      transform:none !important;
+      transition:opacity .35s ease,max-height .4s ease,border-width .4s ease;
+    }
+    .radial.open .radial-item{
+      opacity:1;pointer-events:auto;max-height:440px;border-width:2px;
+      transform:none !important;
+    }
+    .radial-item .img{height:120px}
+    /* hero 文案在小屏收紧，避免过挤/溢出 */
+    .hero{padding-top:96px}
+    .hero-title{font-size:clamp(42px,13vw,72px);letter-spacing:-2px}
+    .hero-sub{font-size:clamp(18px,5.2vw,24px);letter-spacing:1.5px}
+    .hero-desc{font-size:14px;padding:0 4px}
+    .hero-art{margin-top:24px;border-radius:16px}
+    /* 区块间距收敛 */
+    section{padding:64px 0}
+    .explore{padding:64px 0}
+    .next{padding:36px 22px 44px}
+    .foot-grid{gap:26px}
   }
   @media(max-width:480px){
     .stats{grid-template-columns:1fr}
-    .hero{padding-top:110px}
+    .hero{padding-top:92px}
+    .radial-item .img{height:110px}
   }
 </style>
 </head>
@@ -688,6 +729,23 @@
     });
   }, { threshold: 0.16, rootMargin: '0px 0px -10% 0px' });
   document.querySelectorAll('section.reveal, footer.reveal').forEach(function(el){ obs.observe(el); });
+})();
+</script>
+
+<!-- ====== 手机端 hero 视频自动播放兜底（微信/抖音内置浏览器 & 省电模式会拦截 autoplay） ====== -->
+<script>
+(function(){
+  var v = document.querySelector('.hero-video');
+  if(!v) return;
+  v.muted = true;            // 部分浏览器要求 JS 显式设 muted 才允许 play()
+  function tryPlay(){
+    try{ var p = v.play(); if(p && p.catch) p.catch(function(){}); }catch(_){}
+  }
+  tryPlay();                 // 进页面先试一次
+  // 首次触摸 / 点击 / 滚动时再补一次（用户交互后浏览器才放行自动播放）
+  ['touchstart','click','scroll'].forEach(function(ev){
+    window.addEventListener(ev, function once(){ tryPlay(); window.removeEventListener(ev, once); }, {passive:true, once:true});
+  });
 })();
 </script>
 </body>
