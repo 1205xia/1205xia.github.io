@@ -85,15 +85,9 @@
   .hero-desc{margin-top:12px;font-size:15px;color:#1a1a1a;max-width:560px;line-height:1.8}
   .hero-art{position:relative;margin-top:46px;border-radius:22px;overflow:hidden;aspect-ratio:16/9;background:linear-gradient(180deg,#ffb3c8 0%,#ffd9e6 50%,#c8e8ff 100%);box-shadow:0 40px 80px -30px rgba(0,0,0,.3),inset 0 0 0 1px rgba(255,255,255,.6)}
   .hero-art .badge-pos{position:absolute;top:18px;left:18px;z-index:6}
-  /* 关键：人物不要描边 → 不强行加边框/阴影 + drop-shadow 雾化白边 + 弹跳 */
-  .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%;z-index:1;animation:kenburns 12s ease-in-out infinite alternate, heroPop 4.2s cubic-bezier(.4,1.7,.5,1) infinite;filter:drop-shadow(0 26px 50px rgba(0,0,0,.22)) drop-shadow(0 0 30px rgba(255,255,255,.4));transform-origin:center}
-  @keyframes kenburns{0%{transform:scale(1.02) translate(0,0)}25%{transform:scale(1.05) translate(-1%,-1.5%)}50%{transform:scale(1.07) translate(-2%,-2.5%)}75%{transform:scale(1.04) translate(1%,1%)}100%{transform:scale(1.02) translate(0,0)}}
-  @keyframes heroPop{
-    0%,100%{transform:scale(1.00) translateY(0) translate(0,0)}
-    20%    {transform:scale(1.030) translateY(-6px) translate(-.5%,-1.5%)}
-    50%    {transform:scale(1.055) translateY(-12px) translate(-1%,-2.5%)}
-    80%    {transform:scale(1.025) translateY(-4px) translate(.5%,1%)}
-  }
+  /* 关键：单角色 SVG，无白边（去掉白色 drop-shadow），仅轻柔浮动，真正连续动起来靠 SVG 内部动画 */
+  .hero-img{position:absolute;inset:0;width:100%;height:100%;z-index:1;display:block;animation:heroFloat 7s ease-in-out infinite;filter:drop-shadow(0 24px 46px rgba(0,0,0,.22));transform-origin:center}
+  @keyframes heroFloat{0%,100%{transform:scale(1.01) translateY(0)}50%{transform:scale(1.03) translateY(-6px)}}
   .hero-art::before{content:"";position:absolute;inset:-25%;background:conic-gradient(from 0deg,transparent 0%,rgba(182,242,74,.5) 14%,transparent 28%,rgba(255,179,200,.5) 42%,transparent 56%,rgba(200,232,255,.6) 70%,transparent 84%,rgba(182,242,74,.5) 100%);animation:spin 18s linear infinite;mix-blend-mode:overlay;z-index:3;pointer-events:none;filter:blur(22px)}
   .hero-art::after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(to top,rgba(255,217,230,.4),transparent);z-index:4;pointer-events:none}
   .float-deco{position:absolute;z-index:4;font-size:18px;font-weight:800;color:#000;animation:floatY 4.5s ease-in-out infinite,spin 7s linear infinite;text-shadow:0 0 8px #fff}
@@ -176,6 +170,8 @@
   .avatar-frame::before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,#b6f24a 0%,#ffb3c8 25%,#c8e8ff 50%,#fff7a0 75%,#b6f24a 100%);animation:spin 9s linear infinite;filter:blur(60px);opacity:.9;z-index:0}
   .avatar-frame::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.35),transparent 60%);z-index:2;pointer-events:none;mix-blend-mode:screen}
   .avatar-video{position:absolute;inset:0;width:100%;height:100%;z-index:1;object-fit:cover;animation:imgFloat 8s ease-in-out infinite}
+  /* 单角色卡通猫：无白边，由 SVG 内部 CSS 持续动画（眨眼/耳朵/呼吸/星星） */
+  .avatar-cat{position:absolute;inset:0;width:100%;height:100%;z-index:1;display:block}
   @keyframes avatarFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(.4deg)}}
   @keyframes imgFloat{0%,100%{transform:scale(1) translate(0,0)}50%{transform:scale(1.04) translate(-1.5%,-2%)}}
   .avatar-svg .sparkle{animation:twinkle 3s ease-in-out infinite}
@@ -261,7 +257,117 @@
 
   <div class="hero-art">
     <span class="badge badge-pos">NEW PORTFOLIO</span>
-    <img class="hero-img" src="project_images/hero_animation.webp" alt="夏瑶雯 / 5 帧 2D 卡通动画 / 双手敲键盘+眨眼">
+    <svg class="hero-img" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="卡通猫咪持续敲键盘的动态插画">
+      <defs>
+        <radialGradient id="catBody" cx="42%" cy="32%" r="78%">
+          <stop offset="0%" stop-color="#ffe6c8"/><stop offset="58%" stop-color="#ffce9c"/><stop offset="100%" stop-color="#f4ad72"/>
+        </radialGradient>
+        <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#eaffd6"/><stop offset="100%" stop-color="#c6ef9c"/>
+        </linearGradient>
+        <linearGradient id="desk" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffe9cf"/><stop offset="100%" stop-color="#f3cca0"/>
+        </linearGradient>
+      </defs>
+      <style>
+        .hero-img .pawL{transform-box:fill-box;transform-origin:center;animation:typ .46s ease-in-out infinite}
+        .hero-img .pawR{transform-box:fill-box;transform-origin:center;animation:typ .46s ease-in-out infinite;animation-delay:.23s}
+        .hero-img .eye{transform-box:fill-box;transform-origin:center;animation:blink 4.4s infinite}
+        .hero-img .earL{transform-box:fill-box;transform-origin:bottom right;animation:earL 5.5s infinite}
+        .hero-img .earR{transform-box:fill-box;transform-origin:bottom left;animation:earR 5.5s infinite}
+        .hero-img .tail{transform-box:fill-box;transform-origin:left center;animation:tail 3.2s ease-in-out infinite}
+        .hero-img .glow{animation:glow 2.6s ease-in-out infinite}
+        .hero-img .bar{transform-box:fill-box;transform-origin:bottom center;animation:eq 1.1s ease-in-out infinite}
+        .hero-img .bar.b2{animation-delay:-.3s}.hero-img .bar.b3{animation-delay:-.6s}.hero-img .bar.b4{animation-delay:-.15s}.hero-img .bar.b5{animation-delay:-.85s}
+        .hero-img .spark{transform-box:fill-box;transform-origin:center;animation:rise 3.4s ease-in infinite}
+        .hero-img .spark.s2{animation-delay:-1.1s}.hero-img .spark.s3{animation-delay:-2.2s}.hero-img .spark.s4{animation-delay:-1.7s}
+        @keyframes typ{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+        @keyframes blink{0%,90%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}97%{transform:scaleY(1)}}
+        @keyframes earL{0%,78%,100%{transform:rotate(0)}84%{transform:rotate(-12deg)}90%{transform:rotate(0)}}
+        @keyframes earR{0%,68%,100%{transform:rotate(0)}74%{transform:rotate(10deg)}80%{transform:rotate(0)}}
+        @keyframes tail{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(10deg)}}
+        @keyframes glow{0%,100%{opacity:.55}50%{opacity:1}}
+        @keyframes eq{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+        @keyframes rise{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-120px);opacity:0}}
+      </style>
+
+      <!-- 桌面 -->
+      <rect x="0" y="430" width="960" height="110" fill="url(#desk)"/>
+
+      <!-- 上飘的小星星 -->
+      <g fill="#b6f24a">
+        <path class="spark" d="M180 360 l5 12 l12 5 l-12 5 l-5 12 l-5 -12 l-12 -5 l12 -5 z"/>
+        <path class="spark s2" fill="#ff8fb8" d="M800 340 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 z"/>
+        <path class="spark s3" d="M120 300 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 z"/>
+        <path class="spark s4" fill="#ff8fb8" d="M840 280 l5 12 l12 5 l-12 5 l-5 12 l-5 -12 l-12 -5 l12 -5 z"/>
+      </g>
+
+      <!-- 笔记本屏幕 -->
+      <g>
+        <rect x="348" y="232" width="264" height="186" rx="18" fill="#2b2b33"/>
+        <rect x="362" y="246" width="236" height="158" rx="10" fill="url(#screen)" class="glow"/>
+        <!-- 屏幕上的动态柱状图（数据感） -->
+        <g fill="#3a8f2f">
+          <rect class="bar"    x="384" y="300" width="20" height="80" rx="6"/>
+          <rect class="bar b2" x="416" y="300" width="20" height="80" rx="6"/>
+          <rect class="bar b3" x="448" y="300" width="20" height="80" rx="6"/>
+          <rect class="bar b4" x="480" y="300" width="20" height="80" rx="6"/>
+          <rect class="bar b5" x="512" y="300" width="20" height="80" rx="6"/>
+          <rect class="bar b2" x="544" y="300" width="20" height="80" rx="6"/>
+        </g>
+        <g fill="#2f6f25" opacity=".5">
+          <rect x="384" y="262" width="150" height="8" rx="4"/>
+          <rect x="384" y="278" width="100" height="8" rx="4"/>
+        </g>
+      </g>
+
+      <!-- 笔记本底座 / 键盘 -->
+      <path d="M300 418 L660 418 L700 470 L260 470 Z" fill="#3a3a44"/>
+      <path d="M312 426 L648 426 L678 462 L282 462 Z" fill="#4a4a56"/>
+      <g fill="#c9c9d6">
+        <rect x="320" y="436" width="320" height="6" rx="3"/>
+        <rect x="330" y="448" width="300" height="6" rx="3"/>
+      </g>
+
+      <!-- 尾巴（右侧，摆动） -->
+      <path class="tail" d="M660 470 q70 -10 78 -70 q6 -50 -34 -78 q40 30 26 76 q-14 46 -70 50 z" fill="url(#catBody)"/>
+
+      <!-- 猫咪头 + 身体（屏幕后方，角色只画一次） -->
+      <g>
+        <path class="earL" d="M392 150 L372 70 L452 120 Z" fill="url(#catBody)"/>
+        <path class="earR" d="M568 150 L588 70 L508 120 Z" fill="url(#catBody)"/>
+        <path d="M404 140 L392 92 L436 126 Z" fill="#ff9ec4"/>
+        <path d="M556 140 L568 92 L524 126 Z" fill="#ff9ec4"/>
+        <path d="M360 430 q120 -90 240 0 l0 40 l-240 0 z" fill="url(#catBody)"/>
+        <ellipse cx="480" cy="190" rx="100" ry="92" fill="url(#catBody)"/>
+        <circle cx="412" cy="212" r="20" fill="#ff9ec4" opacity=".6"/>
+        <circle cx="548" cy="212" r="20" fill="#ff9ec4" opacity=".6"/>
+        <g class="eye">
+          <ellipse cx="440" cy="188" rx="15" ry="21" fill="#3a2b25"/>
+          <ellipse cx="520" cy="188" rx="15" ry="21" fill="#3a2b25"/>
+          <circle cx="446" cy="180" r="5.5" fill="#fff"/>
+          <circle cx="526" cy="180" r="5.5" fill="#fff"/>
+        </g>
+        <path d="M470 214 L490 214 L480 226 Z" fill="#ff7aa8"/>
+        <path d="M480 226 Q468 238 458 230" stroke="#3a2b25" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M480 226 Q492 238 502 230" stroke="#3a2b25" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <g stroke="#3a2b25" stroke-width="2.6" stroke-linecap="round" opacity=".8">
+          <path d="M360 198 L318 188"/><path d="M360 212 L318 218"/>
+          <path d="M600 198 L642 188"/><path d="M600 212 L642 218"/>
+        </g>
+        <path d="M480 116 l10 20 l-10 10 l-10 -10 z" fill="#ff9ec4" opacity=".55"/>
+      </g>
+
+      <!-- 键盘上的爪子（前景，交替抬起=敲键盘） -->
+      <g>
+        <ellipse class="pawL" cx="430" cy="452" rx="26" ry="18" fill="url(#catBody)"/>
+        <ellipse class="pawR" cx="530" cy="452" rx="26" ry="18" fill="url(#catBody)"/>
+        <g stroke="#d98e57" stroke-width="2" opacity=".7">
+          <path class="pawL" d="M420 452 v13 M430 452 v13 M440 452 v13"/>
+          <path class="pawR" d="M520 452 v13 M530 452 v13 M540 452 v13"/>
+        </g>
+      </g>
+    </svg>
     <!-- 漂浮的小装饰 -->
     <span class="float-deco d1">✦</span>
     <span class="float-deco d2">✧</span>
@@ -380,7 +486,50 @@
   <div class="about">
     <div class="avatar">
     <div class="avatar-frame">
-      <img class="avatar-video" src="project_images/cat_animation.webp" alt="夏瑶雯的 3D 卡通猫咪头像 / 眨眼动画">
+      <svg class="avatar-cat" viewBox="0 0 320 320" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="卡通猫咪头像 / 持续眨眼与呼吸动画">
+        <style>
+          .avatar-cat .eye{transform-box:fill-box;transform-origin:center;animation:blink 4.2s infinite}
+          .avatar-cat .earL{transform-box:fill-box;transform-origin:bottom right;animation:earL 5s infinite}
+          .avatar-cat .earR{transform-box:fill-box;transform-origin:bottom left;animation:earR 5s infinite}
+          .avatar-cat .head{transform-box:fill-box;transform-origin:center;animation:breathe 4s ease-in-out infinite}
+          .avatar-cat .spark{transform-box:fill-box;transform-origin:center;animation:tw 3s ease-in-out infinite}
+          .avatar-cat .spark:nth-of-type(2){animation-delay:-1s}
+          .avatar-cat .spark:nth-of-type(3){animation-delay:-2s}
+          @keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}97%{transform:scaleY(1)}}
+          @keyframes earL{0%,80%,100%{transform:rotate(0)}85%{transform:rotate(-10deg)}90%{transform:rotate(0)}}
+          @keyframes earR{0%,70%,100%{transform:rotate(0)}75%{transform:rotate(8deg)}80%{transform:rotate(0)}}
+          @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+          @keyframes tw{0%,100%{opacity:.4;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+        </style>
+        <g class="head">
+          <path class="earL" d="M104 92 L96 40 L150 78 Z" fill="#ffceA0"/>
+          <path class="earR" d="M216 92 L224 40 L170 78 Z" fill="#ffceA0"/>
+          <path d="M108 84 L104 56 L132 76 Z" fill="#ff9ec4"/>
+          <path d="M212 84 L216 56 L188 76 Z" fill="#ff9ec4"/>
+          <ellipse cx="160" cy="160" rx="92" ry="84" fill="#ffd9b0"/>
+          <circle cx="108" cy="178" r="16" fill="#ffb3c8" opacity=".7"/>
+          <circle cx="212" cy="178" r="16" fill="#ffb3c8" opacity=".7"/>
+          <g class="eye">
+            <ellipse cx="128" cy="158" rx="13" ry="18" fill="#3a2b25"/>
+            <ellipse cx="192" cy="158" rx="13" ry="18" fill="#3a2b25"/>
+            <circle cx="133" cy="151" r="4.5" fill="#fff"/>
+            <circle cx="197" cy="151" r="4.5" fill="#fff"/>
+          </g>
+          <path d="M152 180 L168 180 L160 190 Z" fill="#ff7aa8"/>
+          <path d="M160 190 Q150 200 142 194" stroke="#3a2b25" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M160 190 Q170 200 178 194" stroke="#3a2b25" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <g stroke="#3a2b25" stroke-width="2.2" stroke-linecap="round" opacity=".8">
+            <path d="M96 168 L60 160"/><path d="M96 178 L60 182"/>
+            <path d="M224 168 L260 160"/><path d="M224 178 L260 182"/>
+          </g>
+          <path d="M160 96 l8 16 l-8 8 l-8 -8 z" fill="#ff9ec4" opacity=".6"/>
+        </g>
+        <g fill="#b6f24a">
+          <path class="spark" d="M250 70 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 z"/>
+          <path class="spark" d="M70 250 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 l8 -3 z"/>
+          <path class="spark" fill="#ff8fb8" d="M265 200 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 l8 -3 z"/>
+        </g>
+      </svg>
     </div>
   </div>
     <div>
