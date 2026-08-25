@@ -112,35 +112,24 @@
   .explore .zh{font-size:14px;background:var(--accent);padding:2px 10px;border-radius:4px;display:inline-block;margin-bottom:6px;border:1.5px solid #000}
   .explore .hint{font-size:13px;opacity:.7;margin-top:8px}
   .radial{position:relative;width:580px;height:580px;margin:70px auto 30px}
-  /* 按钮：本身是一片完整的雪花（不再有 TAP ME 文字 + 顶部小图标） */
   .radial-core{
     position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-    width:200px;height:200px;border-radius:50%;
-    background:radial-gradient(circle at 50% 50%, #ffffff 0%, #f4ffce 38%, #d3f09c 70%, #b6f24a 100%);
-    border:3px solid #000;display:flex;align-items:center;justify-content:center;
-    cursor:pointer;z-index:9;
-    box-shadow:5px 5px 0 #000, 0 0 0 8px rgba(255,255,255,.55), 0 0 36px rgba(182,242,74,.65);
+    width:170px;height:170px;border-radius:50%;
+    background:var(--accent);border:3px solid #000;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font-weight:800;font-size:18px;line-height:1.2;cursor:pointer;z-index:9;
+    box-shadow:5px 5px 0 #000;
     transition:transform .45s cubic-bezier(.2,.8,.2,1);
     animation:corePulse 2.4s ease-in-out infinite;
-    overflow:hidden;
   }
   .radial-core:hover{transform:translate(-50%,-50%) scale(1.06)}
-  .radial-core::before{content:"";position:absolute;inset:-22px;border-radius:50%;border:2.5px dashed #000;animation:spin 14s linear infinite;opacity:.45}
-  /* 主雪花图形 */
-  .radial-core::after{
-    content:"";position:absolute;top:50%;left:50%;width:140px;height:140px;
-    transform:translate(-50%,-50%) rotate(0deg);
-    background:
-      radial-gradient(circle at center, transparent 11%, transparent 12%, transparent 22%, transparent 23%);
-    -webkit-mask:var(--snowflake-mask);mask:var(--snowflake-mask);
-    background-color:#0a0a0a;
-    animation:spinSlow 18s linear infinite;
-  }
-  .radial-core svg.snow{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
-  .radial-core .snow-spin{transform-origin:160px 160px;animation:spinSlow 18s linear infinite}
-  @keyframes spinSlow{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-  @keyframes corePulse{0%,100%{box-shadow:5px 5px 0 #000,0 0 0 0 rgba(182,242,74,.7),0 0 36px rgba(182,242,74,.65)}50%{box-shadow:5px 5px 0 #000,0 0 0 18px rgba(182,242,74,0),0 0 50px rgba(182,242,74,.9)}}
+  .radial-core::before{content:"";position:absolute;inset:-18px;border-radius:50%;border:2.5px dashed #000;animation:spin 14s linear infinite;opacity:.5}
+  /* 顶部小雪花图标（保持原版位置） */
+  .radial-core::after{content:"❄";position:absolute;font-size:22px;top:-8px;left:50%;transform:translateX(-50%);color:#000}
+  @keyframes corePulse{0%,100%{box-shadow:5px 5px 0 #000,0 0 0 0 rgba(182,242,74,.7)}50%{box-shadow:5px 5px 0 #000,0 0 0 18px rgba(182,242,74,0)}}
   .radial.open .radial-core{transform:translate(-50%,-50%) scale(1.12) rotate(45deg);background:#000;color:var(--accent)}
+  .radial-core::after{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+  .radial.open .radial-core::after{transform:translateX(-50%) rotate(720deg)}
   .radial-item{position:absolute;top:50%;left:50%;width:260px;height:190px;border-radius:18px;border:2px solid #000;background:#fff;box-shadow:5px 5px 0 #000;opacity:0;transform:translate(-50%,-50%) scale(.2);transition:all .55s cubic-bezier(.2,.85,.25,1);pointer-events:none;overflow:hidden;padding:0;cursor:pointer}
   .radial.open .radial-item{pointer-events:auto;opacity:1}
   .radial.open .ri1{transform:translate(calc(-50% - 195px),calc(-50% - 170px)) scale(1) rotate(-6deg)}
@@ -280,7 +269,7 @@
 
   <div class="hero-art">
     <span class="badge badge-pos">NEW PORTFOLIO</span>
-    <svg class="hero-img" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="卡通人物 3/4 侧坐敲键盘 / 持续大幅度敲击动画">
+    <img class="hero-img" src="project_images/hero_clean.webp" alt="3D 卡通黑发女孩坐在电脑前敲键盘（AI 生成 + 水印已去除）">
       <defs>
         <!-- 立体渐变：光源在左上方 -->
         <radialGradient id="skin" cx="35%" cy="35%" r="80%">
@@ -504,11 +493,7 @@
           <rect class="bar"    x="784" y="288" width="22" height="68" rx="5"/>
           <rect class="bar b2" x="820" y="288" width="22" height="68" rx="5"/>
         </g>
-        <!-- 屏幕反光高光 -->
-        <path d="M622 124 L660 116 L656 240 L626 250 Z" fill="#ffffff" opacity=".25"/>
-      </g>
-    </svg>
-          <!-- 漂浮的小装饰 -->
+        <!-- 漂浮的小装饰 -->
     <span class="float-deco d1">✦</span>
     <span class="float-deco d2">✧</span>
     <span class="float-deco d3">✦</span>
@@ -528,21 +513,7 @@
   <h2>MY PROJECTS</h2>
   <div class="hint">点击下方中央圆圈 ▶ 周围会扇形展开我的 4 个项目（再点一下收起）</div>
   <div class="radial" id="radial" role="button" tabindex="0" aria-label="点击展开我的项目">
-    <div class="radial-core" id="radialCore" aria-label="点击雪花按钮展开项目">
-      <svg class="snow" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g class="snow-spin" stroke="#0a0a0a" stroke-width="10" stroke-linecap="round" fill="none">
-          <!-- 6 条主臂（旋转 60° 递增） -->
-          <g><line x1="160" y1="160" x2="160" y2="40"/><path d="M160 80 L142 92 M160 80 L178 92 M160 110 L142 122 M160 110 L178 122"/></g>
-          <g transform="rotate(60 160 160)"><line x1="160" y1="160" x2="160" y2="40"/><path d="M160 80 L142 92 M160 80 L178 92 M160 110 L142 122 M160 110 L178 122"/></g>
-          <g transform="rotate(120 160 160)"><line x1="160" y1="160" x2="160" y2="40"/><path d="M160 80 L142 92 M160 80 L178 92 M160 110 L142 122 M160 110 L178 122"/></g>
-          <g transform="rotate(180 160 160)"><line x1="160" y1="160" x2="160" y2="40"/><path d="M160 80 L142 92 M160 80 L178 92 M160 110 L142 122 M160 110 L178 122"/></g>
-          <g transform="rotate(240 160 160)"><line x1="160" y1="160" x2="160" y2="40"/><path d="M160 80 L142 92 M160 80 L178 92 M160 110 L142 122 M160 110 L178 122"/></g>
-          <g transform="rotate(300 160 160)"><line x1="160" y1="160" x2="160" y2="40"/><path d="M160 80 L142 92 M160 80 L178 92 M160 110 L142 122 M160 110 L178 122"/></g>
-          <!-- 中间六边形点缀 -->
-          <polygon points="160,144 174,152 174,168 160,176 146,168 146,152" fill="#0a0a0a" stroke="none"/>
-        </g>
-      </svg>
-    </div>
+    <div class="radial-core" id="radialCore">TAP<br>ME ❄</div>
     <a class="radial-item ri1" href="#project-1">
       <div class="img" id="ri1img" style="background-image:url('project_images/A_clean_modern_3D_isometric_il_2026-08-25T05-01-32.webp')"></div>
       <div class="meta"><b>游戏用户行为数据分析</b><span>SQL · Pandas · Matplotlib</span></div>
@@ -793,10 +764,12 @@
         setTimeout((function(el){return function(){el&&el.remove();};})(f), dur+200);
       }
     }
-    // 只点中央雪花按钮切换展开/收起（按钮本身已是一片雪花，按下不再额外喷撒）
+    // 只点中央圆圈切换展开/收起，并喷雪花
     core.addEventListener('click', function(e){
       e.stopPropagation();
       toggle();
+      var r = core.getBoundingClientRect();
+      burstSnow(r.left + r.width/2, r.top + r.height/2);
     });
     // 键盘可达（圆圈聚焦后按 Enter / Space）
     core.setAttribute('tabindex','0');
