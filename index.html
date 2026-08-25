@@ -86,7 +86,8 @@
   /* 不再用 white drop-shadow，避免白描边；先光浮动画 */
   .hero-art{position:relative;margin-top:32px;border-radius:22px;overflow:hidden;aspect-ratio:16/9;max-width:1080px;margin-left:auto;margin-right:auto;background:linear-gradient(135deg,#ffe0ec 0%,#d9f3ff 100%);box-shadow:0 40px 80px -30px rgba(0,0,0,.3),inset 0 0 0 1px rgba(255,255,255,.6)}
   .hero-art .badge-pos{position:absolute;top:18px;left:18px;z-index:6}
-  /* 底层 3D 渲染图：cover 充满 3.47:1 hero 框，浮游动画保留 */
+  /* 视频：4s 循环，手指真的在动 + 屏幕从黑过渡到亮起的彩色仪表盘（cv2.inpaint 已去水印 + H.264 压缩 519KB） */
+  .hero-video{position:absolute;inset:0;width:100%;height:100%;z-index:1;display:block;object-fit:cover;object-position:center center;background:#1a1320}
   .hero-img{position:absolute;inset:0;width:100%;height:100%;z-index:1;display:block;object-fit:cover;object-position:center center;animation:heroFloat 7s ease-in-out infinite;filter:none;transform-origin:center}
   @keyframes heroFloat{0%,100%{transform:scale(1.01) translateY(0)}50%{transform:scale(1.025) translateY(-4px)}}
   .hero-art::before{content:"";position:absolute;inset:-25%;background:conic-gradient(from 0deg,transparent 0%,rgba(182,242,74,.5) 14%,transparent 28%,rgba(255,179,200,.5) 42%,transparent 56%,rgba(200,232,255,.6) 70%,transparent 84%,rgba(182,242,74,.5) 100%);animation:spin 18s linear infinite;mix-blend-mode:overlay;z-index:3;pointer-events:none;filter:blur(22px)}
@@ -271,109 +272,10 @@
 
   <div class="hero-art">
     <span class="badge badge-pos">NEW PORTFOLIO</span>
-    <img class="hero-img" src="project_images/hero_3d_v6.webp" alt="3D 渲染金发戴粉色耳机女孩坐在桌前，电脑屏幕朝向女孩（女孩低头看屏幕），双手自然放键盘上打字，桌面有咖啡杯+粉色书+Xbox 控制器，背景粉色+城市+云+热气球" loading="eager" decoding="async" fetchpriority="high">
-
-    <!-- 叠层动效（viewBox 1280×720 与 hero_3d_v6.webp 像素完全对齐）： -->
-    <!--   (1) 双掌呼吸光晕大椭圆：让"整只手在动"可见； -->
-    <!--   (2) 双指尖按下闪光：大圆高亮、变亮变胖模拟按键； -->
-    <!--   (3) 拖尾 echo：指尖按下后残影向上飘； -->
-    <!--   (4) 屏幕顶部 LED（绿色呼吸 + 阴影发光）：表示屏幕在显示内容； -->
-    <!--   (5) 屏幕顶端反光高光：细横线提示屏幕亮着的反光； -->
-    <!--   (6) 咖啡杯 3 缕热气错相上升。 -->
-    <svg class="hero-overlay" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <style>
-        /* === (1) 双掌呼吸光晕 (大椭圆，1.4s 慢节奏，让整只手"在呼吸") === */
-        .hero-overlay .hand-zone-r, .hero-overlay .hand-zone-l {
-          transform-box: fill-box;
-          transform-origin: center;
-          animation: handBreath 1.4s ease-in-out infinite;
-        }
-        .hero-overlay .hand-zone-l { animation-delay: .5s; }
-
-        /* === (2) 指尖按下闪光 (大圆+内核，圆+亮+缩放) === */
-        .hero-overlay .fingertap-r, .hero-overlay .fingertap-l {
-          transform-box: fill-box;
-          transform-origin: center;
-          animation: fingerPress .4s cubic-bezier(.34,1.56,.64,1) infinite;
-        }
-        .hero-overlay .fingertap-l { animation-delay: .2s; }
-
-        /* === (3) 拖尾 echo (指尖下方残影，按下后向上飘) === */
-        .hero-overlay .fingertrail-r, .hero-overlay .fingertrail-l {
-          transform-box: fill-box;
-          transform-origin: center;
-          animation: trailEcho .4s ease-out infinite;
-          opacity: 0;
-        }
-        .hero-overlay .fingertrail-l { animation-delay: .2s; }
-
-        /* === (4) 屏幕顶部 LED (开机指示灯，绿色 + drop-shadow 发光) === */
-        .hero-overlay .screen-led { animation: ledBreath 2s ease-in-out infinite; }
-
-        /* === (5) 屏幕顶端反光高光 (细横线，提示屏幕反光) === */
-        .hero-overlay .screen-shine { animation: shineFade 3.6s ease-in-out infinite; }
-
-        /* === (6) 咖啡杯热气 (3 缕错相上升) === */
-        .hero-overlay .steam { transform-box: fill-box; transform-origin: center; animation: steamUp 4s ease-out infinite; opacity: 0; }
-        .hero-overlay .steam.s2 { animation-delay: 1.33s; }
-        .hero-overlay .steam.s3 { animation-delay: 2.66s; }
-
-        @keyframes handBreath {
-          0%, 100% { opacity: 0; transform: scale(.85); }
-          50%      { opacity: .42; transform: scale(1.05); }
-        }
-        @keyframes fingerPress {
-          0%, 100% { opacity: .5; transform: scale(.85); }
-          45%, 55% { opacity: 1;  transform: scale(1.25); }
-        }
-        @keyframes trailEcho {
-          0%, 25% { opacity: 0;  transform: translateY(0) scale(1); }
-          50%     { opacity: .65; transform: translateY(-4px) scale(1.1); }
-          100%    { opacity: 0;  transform: translateY(-14px) scale(.85); }
-        }
-        @keyframes ledBreath {
-          0%, 100% { opacity: .35; }
-          45%, 55% { opacity: 1; }
-        }
-        @keyframes shineFade {
-          0%, 100% { opacity: .2; }
-          50%      { opacity: .55; }
-        }
-        @keyframes steamUp {
-          0%   { opacity: 0; transform: translateY(0) scale(.85); }
-          18%  { opacity: .65; }
-          60%  { opacity: .35; }
-          100% { opacity: 0; transform: translateY(-50px) scale(1.5); }
-        }
-      </style>
-
-      <!-- (1) 右手呼吸光晕大椭圆 (近相机手，cx=620 cy=510) -->
-      <ellipse class="hand-zone-r" cx="620" cy="515" rx="85" ry="45" fill="rgba(255,225,190,.6)"/>
-      <!-- 左手呼吸光晕 (远侧手，cx=775 cy=485) -->
-      <ellipse class="hand-zone-l" cx="775" cy="488" rx="78" ry="40" fill="rgba(255,225,190,.55)"/>
-
-      <!-- (2a) 右手指尖按下闪光 (外晕 + 内核) -->
-      <circle class="fingertap-r" cx="625" cy="518" r="18" fill="rgba(255,240,210,.95)"/>
-      <circle class="fingertap-r" cx="625" cy="518" r="10" fill="rgba(255,255,255,1)"/>
-      <!-- (2b) 左手指尖按下闪光 -->
-      <circle class="fingertap-l" cx="770" cy="492" r="16" fill="rgba(255,240,210,.9)"/>
-      <circle class="fingertap-l" cx="770" cy="492" r="9" fill="rgba(255,255,255,1)"/>
-
-      <!-- (3) 拖尾 echo (指尖下方暖橙色残影，按下后向上飘) -->
-      <circle class="fingertrail-r" cx="625" cy="528" r="13" fill="rgba(255,200,150,.65)"/>
-      <circle class="fingertrail-l" cx="770" cy="502" r="11" fill="rgba(255,200,150,.6)"/>
-
-      <!-- (4) 屏幕顶部 LED 灯 (MacBook 开机指示，绿色 + drop-shadow 发光) -->
-      <circle class="screen-led" cx="858" cy="378" r="3.5" fill="#7cffcb" style="filter:drop-shadow(0 0 6px #7cffcb)"/>
-
-      <!-- (5) 屏幕顶端细反光高光 (细横线，从屏幕边缘延伸，提示屏幕反光) -->
-      <rect class="screen-shine" x="715" y="395" width="285" height="2.5" rx="1.25" fill="rgba(255,255,255,.65)"/>
-
-      <!-- (6) 咖啡杯热气 (3 缕白气错相上升) -->
-      <circle class="steam"    cx="915" cy="557" r="9" fill="rgba(255,255,255,.7)"/>
-      <circle class="steam s2" cx="930" cy="552" r="7" fill="rgba(255,255,255,.6)"/>
-      <circle class="steam s3" cx="900" cy="562" r="6" fill="rgba(255,255,255,.55)"/>
-    </svg>
+    <!-- 真正的循环动图：4 秒，手指真的在键盘上敲 + 屏幕从黑过渡到亮起的彩色仪表盘（手部动画 + 屏幕发光全靠视频本身，不再叠 SVG 光斑） -->
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="project_images/hero_3d_v6.webp" aria-label="3D 渲染金发戴粉色耳机女孩在粉色笔记本电脑前敲键盘，屏幕渐变为彩色仪表盘">
+      <source src="project_images/hero_typing.mp4" type="video/mp4">
+    </video>
 
     <span class="float-deco d1">✦</span>
     <span class="float-deco d2">✧</span>
