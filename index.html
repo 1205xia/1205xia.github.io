@@ -121,7 +121,7 @@
   .radial-core{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:170px;height:170px;border-radius:50%;background:var(--accent);border:3px solid #000;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;font-size:18px;line-height:1.2;cursor:pointer;z-index:9;box-shadow:5px 5px 0 #000;transition:transform .45s cubic-bezier(.2,.8,.2,1);animation:corePulse 2.4s ease-in-out infinite}
   .radial-core:hover{transform:translate(-50%,-50%) scale(1.06)}
   .radial-core::before{content:"";position:absolute;inset:-18px;border-radius:50%;border:2.5px dashed #000;animation:spin 14s linear infinite;opacity:.5}
-  .radial-core::after{content:"✦";position:absolute;font-size:22px;top:-8px;left:50%;transform:translateX(-50%);color:#000}
+  .radial-core::after{content:"❄";position:absolute;font-size:22px;top:-8px;left:50%;transform:translateX(-50%);color:#000}
   @keyframes corePulse{0%,100%{box-shadow:5px 5px 0 #000,0 0 0 0 rgba(182,242,74,.7)}50%{box-shadow:5px 5px 0 #000,0 0 0 18px rgba(182,242,74,0)}}
   .radial.open .radial-core{transform:translate(-50%,-50%) scale(1.12) rotate(45deg);background:#000;color:var(--accent)}
   .radial-item{position:absolute;top:50%;left:50%;width:260px;height:190px;border-radius:18px;border:2px solid #000;background:#fff;box-shadow:5px 5px 0 #000;opacity:0;transform:translate(-50%,-50%) scale(.2);transition:all .55s cubic-bezier(.2,.85,.25,1);pointer-events:none;overflow:hidden;padding:0;cursor:pointer}
@@ -282,7 +282,7 @@
   <h2>MY PROJECTS</h2>
   <div class="hint">点击下方中央圆圈 ▶ 周围会扇形展开我的 4 个项目（再点一下收起）</div>
   <div class="radial" id="radial" role="button" tabindex="0" aria-label="点击展开我的项目">
-    <div class="radial-core" id="radialCore">TAP<br>ME ✦</div>
+    <div class="radial-core" id="radialCore">TAP<br>ME ❄</div>
     <a class="radial-item ri1" href="#project-1">
       <div class="img" id="ri1img" style="background-image:url('project_images/A_clean_modern_3D_isometric_il_2026-08-25T05-01-32.webp')"></div>
       <div class="meta"><b>游戏用户行为数据分析</b><span>SQL · Pandas · Matplotlib</span></div>
@@ -380,78 +380,7 @@
   <div class="about">
     <div class="avatar">
     <div class="avatar-frame">
-      <!-- 圆胖小羊卡通风：圆润、柔和、粉绿配色 -->
-      <svg class="avatar-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <!-- 背景：柔粉到淡蓝渐变圆 -->
-        <defs>
-          <radialGradient id="bg" cx="50%" cy="40%" r="80%">
-            <stop offset="0%" stop-color="#fff0f6"/>
-            <stop offset="60%" stop-color="#ffd9e6"/>
-            <stop offset="100%" stop-color="#c8e8ff"/>
-          </radialGradient>
-          <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#ffffff"/>
-            <stop offset="100%" stop-color="#fde7f0"/>
-          </linearGradient>
-          <radialGradient id="face" cx="50%" cy="55%" r="50%">
-            <stop offset="0%" stop-color="#ffe7d6"/>
-            <stop offset="100%" stop-color="#ffd5b8"/>
-          </radialGradient>
-        </defs>
-        <circle cx="100" cy="100" r="98" fill="url(#bg)"/>
-
-        <!-- 身体（白色圆胖） -->
-        <ellipse cx="100" cy="135" rx="48" ry="40" fill="url(#bodyGrad)" stroke="#0a0a0a" stroke-width="3"/>
-
-        <!-- 围巾（lime green） -->
-        <path d="M64 122 Q100 110 136 122 L132 138 Q100 132 68 138 Z" fill="#b6f24a" stroke="#0a0a0a" stroke-width="3"/>
-        <path d="M120 124 L132 138 L138 130 L128 116 Z" fill="#b6f24a" stroke="#0a0a0a" stroke-width="3"/>
-
-        <!-- 铃铛（黑色） -->
-        <ellipse cx="125" cy="132" rx="6" ry="7" fill="#0a0a0a" stroke="#0a0a0a" stroke-width="1.5"/>
-        <line x1="125" y1="128" x2="125" y2="139" stroke="#b6f24a" stroke-width="1"/>
-
-        <!-- 头（圆胖） -->
-        <circle cx="100" cy="80" r="42" fill="url(#bodyGrad)" stroke="#0a0a0a" stroke-width="3"/>
-
-        <!-- 耳朵 -->
-        <ellipse cx="68" cy="56" rx="10" ry="16" fill="#ffd5b8" stroke="#0a0a0a" stroke-width="2.5" transform="rotate(-22 68 56)"/>
-        <ellipse cx="132" cy="56" rx="10" ry="16" fill="#ffd5b8" stroke="#0a0a0a" stroke-width="2.5" transform="rotate(22 132 56)"/>
-
-        <!-- 角（两小角） -->
-        <path d="M82 40 Q86 32 90 40 Q88 44 84 44 Z" fill="#ffd5b8" stroke="#0a0a0a" stroke-width="2"/>
-        <path d="M118 40 Q114 32 110 40 Q112 44 116 44 Z" fill="#ffd5b8" stroke="#0a0a0a" stroke-width="2"/>
-
-        <!-- 头顶卷毛 -->
-        <path d="M85 36 Q92 28 100 34 Q108 28 115 36" fill="#ffffff" stroke="#0a0a0a" stroke-width="2.5" stroke-linejoin="round"/>
-
-        <!-- 脸颊粉红小圆 -->
-        <circle cx="78" cy="92" r="5" fill="#ff9ec4" opacity=".65"/>
-        <circle cx="122" cy="92" r="5" fill="#ff9ec4" opacity=".65"/>
-
-        <!-- 眼睛（大圆黑眼 + 白色高光） -->
-        <ellipse cx="86" cy="78" rx="6" ry="8" fill="#0a0a0a"/>
-        <ellipse cx="114" cy="78" rx="6" ry="8" fill="#0a0a0a"/>
-        <circle cx="88" cy="75" r="2" fill="#ffffff"/>
-        <circle cx="116" cy="75" r="2" fill="#ffffff"/>
-
-        <!-- 鼻子（粉色椭圆） -->
-        <ellipse cx="100" cy="92" rx="4" ry="2.5" fill="#ff7aae"/>
-
-        <!-- 微笑 -->
-        <path d="M92 100 Q100 106 108 100" fill="none" stroke="#0a0a0a" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="100" y1="94.5" x2="100" y2="100" stroke="#0a0a0a" stroke-width="2"/>
-
-        <!-- 胡须小脚（粉色） -->
-        <ellipse cx="80" cy="170" rx="8" ry="5" fill="#ff9ec4" stroke="#0a0a0a" stroke-width="2"/>
-        <ellipse cx="100" cy="172" rx="8" ry="5" fill="#ff9ec4" stroke="#0a0a0a" stroke-width="2"/>
-        <ellipse cx="120" cy="170" rx="8" ry="5" fill="#ff9ec4" stroke="#0a0a0a" stroke-width="2"/>
-
-        <!-- 漂浮装饰 -->
-        <text x="30" y="40" class="sparkle" fill="#b6f24a" font-size="18" font-weight="900">✦</text>
-        <text x="160" y="55" class="sparkle" fill="#0a0a0a" font-size="14" font-weight="900">♥</text>
-        <text x="170" y="110" class="sparkle" fill="#ff7aae" font-size="12" font-weight="900">✧</text>
-      </svg>
+      <img class="avatar-svg" src="project_images/avatar.webp" alt="夏瑶雯" />
     </div>
   </div>
     <div>
