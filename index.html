@@ -84,13 +84,11 @@
   @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(0,0,0,0)}50%{box-shadow:0 0 0 4px rgba(182,242,74,.35)}}
   .hero-desc{margin-top:12px;font-size:15px;color:#1a1a1a;max-width:560px;line-height:1.8}
   /* 不再用 white drop-shadow，避免白描边；先光浮动画 */
-  .hero-art{position:relative;margin-top:38px;border-radius:22px;overflow:hidden;aspect-ratio:1024/682;max-width:880px;margin-left:auto;margin-right:auto;background:linear-gradient(135deg,#ffe0ec 0%,#d9f3ff 100%);box-shadow:0 40px 80px -30px rgba(0,0,0,.3),inset 0 0 0 1px rgba(255,255,255,.6)}
+  .hero-art{position:relative;margin-top:38px;border-radius:22px;overflow:hidden;aspect-ratio:1024/295;max-width:1080px;margin-left:auto;margin-right:auto;background:linear-gradient(135deg,#ffe0ec 0%,#d9f3ff 100%);box-shadow:0 40px 80px -30px rgba(0,0,0,.3),inset 0 0 0 1px rgba(255,255,255,.6)}
   .hero-art .badge-pos{position:absolute;top:18px;left:18px;z-index:6}
-  /* 底层静态图：contain 保证不被压缩 */
-  .hero-img{position:absolute;inset:0;width:100%;height:100%;z-index:1;display:block;object-fit:cover;object-position:center 35%;animation:heroFloat 7s ease-in-out infinite;filter:none;transform-origin:center}
-  /* 叠层 SVG：同样 contain，盖在 hero-img 之上 */
-  .hero-overlay{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;object-fit:cover;object-position:center 35%;pointer-events:none}
-  @keyframes heroFloat{0%,100%{transform:scale(1.01) translateY(0)}50%{transform:scale(1.03) translateY(-6px)}}
+  /* 底层 3D 渲染图：cover 充满 3.47:1 hero 框，浮游动画保留 */
+  .hero-img{position:absolute;inset:0;width:100%;height:100%;z-index:1;display:block;object-fit:cover;object-position:center center;animation:heroFloat 7s ease-in-out infinite;filter:none;transform-origin:center}
+  @keyframes heroFloat{0%,100%{transform:scale(1.01) translateY(0)}50%{transform:scale(1.025) translateY(-4px)}}
   .hero-art::before{content:"";position:absolute;inset:-25%;background:conic-gradient(from 0deg,transparent 0%,rgba(182,242,74,.5) 14%,transparent 28%,rgba(255,179,200,.5) 42%,transparent 56%,rgba(200,232,255,.6) 70%,transparent 84%,rgba(182,242,74,.5) 100%);animation:spin 18s linear infinite;mix-blend-mode:overlay;z-index:3;pointer-events:none;filter:blur(22px)}
   .hero-art::after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(to top,rgba(255,217,230,.4),transparent);z-index:4;pointer-events:none}
   .float-deco{position:absolute;z-index:4;font-size:18px;font-weight:800;color:#000;animation:floatY 4.5s ease-in-out infinite,spin 7s linear infinite;text-shadow:0 0 8px #fff}
@@ -273,76 +271,7 @@
 
   <div class="hero-art">
     <span class="badge badge-pos">NEW PORTFOLIO</span>
-    <img class="hero-img" src="project_images/hero_real.webp" alt="真人手部特写：双手自然敲击 MacBook 键盘（Unsplash 高清摄影，色调已调成马卡龙暖色）">
-
-    <!-- 叠在真人图上层的手指+键盘动效：手腕呼吸 + 指尖敲击 + 键帽按下（坐标贴合 Mimi Thian 图真实手/键盘位置） -->
-    <svg class="hero-overlay" viewBox="0 0 1024 682" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <style>
-        /* === 真人摄影图专用：动效严格贴在手+键盘位置 === */
-        /* 1) 双手手腕上下浮动（typing 呼吸，幅度 5px，慢节奏 1.6s，让用户视觉感到"手在动"） */
-        .hero-overlay .wristL,.hero-overlay .wristR{transform-box:fill-box;transform-origin:center;animation:wristBob 1.6s ease-in-out infinite}
-        .hero-overlay .wristR{animation-delay:.4s}
-        /* 2) 指尖高光圈上下错相弹跳（贴左手指尖 + 右手指尖，幅度 9px 节奏 .42s） */
-        .hero-overlay .tipL{transform-box:fill-box;transform-origin:center;animation:tipTapL .42s ease-in-out infinite}
-        .hero-overlay .tipR{transform-box:fill-box;transform-origin:center;animation:tipTapR .42s ease-in-out infinite;animation-delay:.21s}
-        /* 3) 真实键盘键位"按下"（圆角矩形下凹+变暗，6 键错开 0.07s 模拟持续打字） */
-        .hero-overlay .key{transform-box:fill-box;transform-origin:center;animation:keyPress .42s ease-in-out infinite}
-        .hero-overlay .key.k2{animation-delay:.07s}
-        .hero-overlay .key.k3{animation-delay:.14s}
-        .hero-overlay .key.k4{animation-delay:.21s}
-        .hero-overlay .key.k5{animation-delay:.28s}
-        .hero-overlay .key.k6{animation-delay:.35s}
-
-        @keyframes wristBob{
-          0%,100%{transform:translateY(0)}
-          50%    {transform:translateY(-5px)}
-        }
-        @keyframes tipTapL{
-          0%,100%{transform:translateY(0);opacity:.55}
-          45%    {transform:translateY(-9px);opacity:.95}
-          55%    {transform:translateY(-9px);opacity:.95}
-        }
-        @keyframes tipTapR{
-          0%,100%{transform:translateY(0);opacity:.55}
-          45%    {transform:translateY(-9px);opacity:.95}
-          55%    {transform:translateY(-9px);opacity:.95}
-        }
-        @keyframes keyPress{
-          0%,100%{transform:translateY(0);fill-opacity:.18;stroke-opacity:.6}
-          50%    {transform:translateY(4px);fill-opacity:.55;stroke-opacity:1}
-        }
-      </style>
-
-      <!-- (1) 左手腕呼吸高光（贴在左手腕位置 x≈315 y≈285，淡淡的暖光跟随手腕浮动） -->
-      <g class="wristL">
-        <ellipse cx="305" cy="295" rx="80" ry="22" fill="rgba(255,210,170,.32)"/>
-      </g>
-      <!-- (2) 右手腕呼吸高光（贴在右手腕 x≈720 y≈250） -->
-      <g class="wristR">
-        <ellipse cx="720" cy="255" rx="90" ry="24" fill="rgba(255,210,170,.28)"/>
-      </g>
-
-      <!-- (3) 左手指尖高光圈（贴左手指尖 x≈380 y≈395 — 食指略低处） -->
-      <g class="tipL">
-        <circle cx="380" cy="395" r="14" fill="rgba(255,228,170,.0)" stroke="rgba(255,180,90,.85)" stroke-width="2.5"/>
-        <circle cx="380" cy="395" r="5"  fill="rgba(255,200,120,.9)"/>
-      </g>
-      <!-- (4) 右手指尖高光圈（贴右手指尖 x≈770 y≈345） -->
-      <g class="tipR">
-        <circle cx="770" cy="345" r="14" fill="rgba(255,228,170,.0)" stroke="rgba(255,180,90,.85)" stroke-width="2.5"/>
-        <circle cx="770" cy="345" r="5"  fill="rgba(255,200,120,.9)"/>
-      </g>
-
-      <!-- (5) 真实键盘键帽"按下"动效（贴在图右下角 MacBook 键盘可见区域 6 键错相） -->
-      <g>
-        <rect class="key"    x="715" y="540" width="38" height="32" rx="5" fill="rgba(0,0,0,.0)" stroke="rgba(255,255,255,.85)" stroke-width="1.2"/>
-        <rect class="key k2" x="762" y="540" width="38" height="32" rx="5" fill="rgba(0,0,0,.0)" stroke="rgba(255,255,255,.85)" stroke-width="1.2"/>
-        <rect class="key k3" x="809" y="540" width="38" height="32" rx="5" fill="rgba(0,0,0,.0)" stroke="rgba(255,255,255,.85)" stroke-width="1.2"/>
-        <rect class="key k4" x="856" y="540" width="38" height="32" rx="5" fill="rgba(0,0,0,.0)" stroke="rgba(255,255,255,.85)" stroke-width="1.2"/>
-        <rect class="key k5" x="903" y="540" width="38" height="32" rx="5" fill="rgba(0,0,0,.0)" stroke="rgba(255,255,255,.85)" stroke-width="1.2"/>
-        <rect class="key k6" x="950" y="540" width="38" height="32" rx="5" fill="rgba(0,0,0,.0)" stroke="rgba(255,255,255,.85)" stroke-width="1.2"/>
-      </g>
-    </svg>
+    <img class="hero-img" src="project_images/hero_3d_final.webp" alt="3D 渲染金发戴粉色耳机 Q 版女孩坐在桌前，看 Analytics Dashboard 笔记本，桌面有咖啡杯+书+Xbox 控制器，背景粉色+城市+云">
 
     <span class="float-deco d1">✦</span>
     <span class="float-deco d2">✧</span>
