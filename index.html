@@ -79,12 +79,12 @@
   .hero-title .sparkle{color:var(--accent);font-size:.42em;display:inline-block;margin-left:.06em;transform:translateY(-.04em) rotate(8deg);animation:spin 6s linear infinite}
   @keyframes spin{from{transform:translateY(.1em) rotate(0)}to{transform:translateY(.1em) rotate(360deg)}}
   .hero-meta{margin-top:14px;font-size:14px;font-weight:600;letter-spacing:.3px}
-  .hero-sub{margin-top:16px;font-size:clamp(18px,2.4vw,26px);font-weight:800;letter-spacing:.5px}
+  .hero-sub{margin-top:18px;font-size:clamp(22px,3.2vw,34px);font-weight:800;letter-spacing:3px;text-align:center}
   .hero-sub .x{color:var(--accent);background:#000;padding:0 8px;border-radius:6px;animation:glow 2.4s ease-in-out infinite}
   @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(0,0,0,0)}50%{box-shadow:0 0 0 4px rgba(182,242,74,.35)}}
   .hero-desc{margin-top:12px;font-size:15px;color:#1a1a1a;max-width:560px;line-height:1.8}
   /* 不再用 white drop-shadow，避免白描边；先光浮动画 */
-  .hero-art{position:relative;margin-top:38px;border-radius:22px;overflow:hidden;aspect-ratio:1024/295;max-width:1080px;margin-left:auto;margin-right:auto;background:linear-gradient(135deg,#ffe0ec 0%,#d9f3ff 100%);box-shadow:0 40px 80px -30px rgba(0,0,0,.3),inset 0 0 0 1px rgba(255,255,255,.6)}
+  .hero-art{position:relative;margin-top:32px;border-radius:22px;overflow:hidden;aspect-ratio:16/9;max-width:1080px;margin-left:auto;margin-right:auto;background:linear-gradient(135deg,#ffe0ec 0%,#d9f3ff 100%);box-shadow:0 40px 80px -30px rgba(0,0,0,.3),inset 0 0 0 1px rgba(255,255,255,.6)}
   .hero-art .badge-pos{position:absolute;top:18px;left:18px;z-index:6}
   /* 底层 3D 渲染图：cover 充满 3.47:1 hero 框，浮游动画保留 */
   .hero-img{position:absolute;inset:0;width:100%;height:100%;z-index:1;display:block;object-fit:cover;object-position:center center;animation:heroFloat 7s ease-in-out infinite;filter:none;transform-origin:center}
@@ -271,7 +271,7 @@
 
   <div class="hero-art">
     <span class="badge badge-pos">NEW PORTFOLIO</span>
-    <img class="hero-img" src="project_images/hero_3d_final.webp" alt="3D 渲染金发戴粉色耳机 Q 版女孩坐在桌前，看 Analytics Dashboard 笔记本，桌面有咖啡杯+书+Xbox 控制器，背景粉色+城市+云">
+    <img class="hero-img" src="project_images/hero_3d_v4.webp" alt="3D 渲染金发戴粉色耳机女孩坐在桌前，电脑屏幕朝向女孩（女孩正对屏幕看 Analytics Dashboard 彩色图表），双手自然放键盘上，桌面有咖啡杯带热气+粉色书+白色 Xbox 控制器，背景粉色渐变+城市天际线+云朵，马卡龙丰富配色">
 
     <span class="float-deco d1">✦</span>
     <span class="float-deco d2">✧</span>
