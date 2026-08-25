@@ -82,7 +82,7 @@
   .hero-sub{margin-top:18px;font-size:clamp(22px,3.2vw,34px);font-weight:800;letter-spacing:3px;text-align:center}
   .hero-sub .x{color:var(--accent);background:#000;padding:0 8px;border-radius:6px;animation:glow 2.4s ease-in-out infinite}
   @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(0,0,0,0)}50%{box-shadow:0 0 0 4px rgba(182,242,74,.35)}}
-  .hero-desc{margin-top:12px;font-size:15px;color:#1a1a1a;max-width:560px;line-height:1.8}
+  .hero-desc{margin:18px auto 0;font-size:clamp(15px,1.7vw,18px);color:#1a1a1a;max-width:780px;line-height:1.85;text-align:center;font-weight:500}
   /* 不再用 white drop-shadow，避免白描边；先光浮动画 */
   .hero-art{position:relative;margin-top:32px;border-radius:22px;overflow:hidden;aspect-ratio:16/9;max-width:1080px;margin-left:auto;margin-right:auto;background:linear-gradient(135deg,#ffe0ec 0%,#d9f3ff 100%);box-shadow:0 40px 80px -30px rgba(0,0,0,.3),inset 0 0 0 1px rgba(255,255,255,.6)}
   .hero-art .badge-pos{position:absolute;top:18px;left:18px;z-index:6}
@@ -271,7 +271,76 @@
 
   <div class="hero-art">
     <span class="badge badge-pos">NEW PORTFOLIO</span>
-    <img class="hero-img" src="project_images/hero_3d_v4.webp" alt="3D 渲染金发戴粉色耳机女孩坐在桌前，电脑屏幕朝向女孩（女孩正对屏幕看 Analytics Dashboard 彩色图表），双手自然放键盘上，桌面有咖啡杯带热气+粉色书+白色 Xbox 控制器，背景粉色渐变+城市天际线+云朵，马卡龙丰富配色">
+    <img class="hero-img" src="project_images/hero_3d_v5.webp" alt="3D 渲染金发戴粉色耳机女孩坐在桌前，电脑屏幕朝向女孩（女孩低头看屏幕），双手自然放键盘上打字，桌面有咖啡杯+粉色书+Xbox 控制器，背景粉色+城市+云+热气球">
+
+    <!-- 叠层动效：手部敲击流光（左右手错相弹跳产生打字感）+ 咖啡杯热气升腾 + 屏幕微泛光 -->
+    <svg class="hero-overlay" viewBox="0 0 1792 1024" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <style>
+        /* === 1) 双手食指敲击流光：左右错开半拍（0.18s），快速上下 + 不透明度起伏，模拟连续打字 === */
+        .hero-overlay .tip-front, .hero-overlay .tip-back {
+          transform-box: fill-box;
+          transform-origin: center;
+          animation: typeDown 0.36s cubic-bezier(.34,1.56,.64,1) infinite;
+        }
+        .hero-overlay .tip-back { animation-delay: 0.18s; }
+
+        /* === 2) 手腕呼吸光晕：1.6s 慢节奏上下飘，让手腕"在手腕处" === */
+        .hero-overlay .wrist-glow { transform-box: fill-box; transform-origin: center; animation: wristPulse 1.6s ease-in-out infinite; }
+
+        /* === 3) 咖啡杯热气：3 缕云气错相上升，4s 周期，轻盈不抢戏 === */
+        .hero-overlay .steam-puff { transform-box: fill-box; transform-origin: center; animation: steamRise 4s ease-out infinite; opacity: 0; }
+        .hero-overlay .steam-puff.s2 { animation-delay: 1.33s; }
+        .hero-overlay .steam-puff.s3 { animation-delay: 2.66s; }
+
+        /* === 4) 笔记本底部（屏幕底部边缘）的微泛光：表示屏幕点亮，2.4s 缓慢呼吸 === */
+        .hero-overlay .screen-glow { transform-box: fill-box; transform-origin: center; animation: screenBreath 2.4s ease-in-out infinite; }
+
+        @keyframes typeDown {
+          0%, 100% { transform: translateY(0); opacity: 0.42; }
+          45%, 55% { transform: translateY(-9px); opacity: 0.95; }
+        }
+        @keyframes wristPulse {
+          0%, 100% { opacity: 0.18; transform: scale(1) translateY(0); }
+          50%      { opacity: 0.34; transform: scale(1.04) translateY(-3px); }
+        }
+        @keyframes steamRise {
+          0%   { opacity: 0; transform: translateY(0) scale(0.85); }
+          18%  { opacity: 0.55; }
+          60%  { opacity: 0.32; }
+          100% { opacity: 0; transform: translateY(-55px) scale(1.6); }
+        }
+        @keyframes screenBreath {
+          0%, 100% { opacity: 0.32; }
+          50%      { opacity: 0.6; }
+        }
+      </style>
+
+      <!-- (1) 右手食指（更靠近相机，在键盘前排）：一颗暖橙 + 半透明白色描边圆，错相按下 -->
+      <g class="tip-front">
+        <ellipse cx="855" cy="712" rx="15" ry="11" fill="rgba(255,200,150,0.55)" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/>
+      </g>
+      <!-- (2) 左手食指（在键盘后排，右手手指之后）：错相 0.18s -->
+      <g class="tip-back">
+        <ellipse cx="1065" cy="680" rx="14" ry="10" fill="rgba(255,200,150,0.5)" stroke="rgba(255,255,255,0.8)" stroke-width="1.4"/>
+      </g>
+
+      <!-- (3) 双手手腕呼吸光晕（暖色椭圆，1.6s 慢节奏） -->
+      <g class="wrist-glow">
+        <ellipse cx="960" cy="730" rx="190" ry="22" fill="rgba(255,200,170,0.28)"/>
+      </g>
+
+      <!-- (4) 笔记本屏幕底部边缘微泛光（暖白色块，表示屏幕正在亮） -->
+      <g class="screen-glow">
+        <ellipse cx="1175" cy="540" rx="180" ry="14" fill="rgba(255,232,180,0.55)"/>
+      </g>
+
+      <!-- (5) 咖啡杯热气：3 缕云气错相上升 -->
+      <g>
+        <circle class="steam-puff"    cx="1280" cy="780" r="9" fill="rgba(255,255,255,0.7)"/>
+        <circle class="steam-puff s2" cx="1300" cy="775" r="7" fill="rgba(255,255,255,0.6)"/>
+        <circle class="steam-puff s3" cx="1268" cy="785" r="6" fill="rgba(255,255,255,0.55)"/>
+      </g>
+    </svg>
 
     <span class="float-deco d1">✦</span>
     <span class="float-deco d2">✧</span>
