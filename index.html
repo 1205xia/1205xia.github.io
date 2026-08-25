@@ -271,75 +271,108 @@
 
   <div class="hero-art">
     <span class="badge badge-pos">NEW PORTFOLIO</span>
-    <img class="hero-img" src="project_images/hero_3d_v5.webp" alt="3D 渲染金发戴粉色耳机女孩坐在桌前，电脑屏幕朝向女孩（女孩低头看屏幕），双手自然放键盘上打字，桌面有咖啡杯+粉色书+Xbox 控制器，背景粉色+城市+云+热气球">
+    <img class="hero-img" src="project_images/hero_3d_v6.webp" alt="3D 渲染金发戴粉色耳机女孩坐在桌前，电脑屏幕朝向女孩（女孩低头看屏幕），双手自然放键盘上打字，桌面有咖啡杯+粉色书+Xbox 控制器，背景粉色+城市+云+热气球" loading="eager" decoding="async" fetchpriority="high">
 
-    <!-- 叠层动效：手部敲击流光（左右手错相弹跳产生打字感）+ 咖啡杯热气升腾 + 屏幕微泛光 -->
-    <svg class="hero-overlay" viewBox="0 0 1792 1024" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- 叠层动效（viewBox 1280×720 与 hero_3d_v6.webp 像素完全对齐）： -->
+    <!--   (1) 双掌呼吸光晕大椭圆：让"整只手在动"可见； -->
+    <!--   (2) 双指尖按下闪光：大圆高亮、变亮变胖模拟按键； -->
+    <!--   (3) 拖尾 echo：指尖按下后残影向上飘； -->
+    <!--   (4) 屏幕顶部 LED（绿色呼吸 + 阴影发光）：表示屏幕在显示内容； -->
+    <!--   (5) 屏幕顶端反光高光：细横线提示屏幕亮着的反光； -->
+    <!--   (6) 咖啡杯 3 缕热气错相上升。 -->
+    <svg class="hero-overlay" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <style>
-        /* === 1) 双手食指敲击流光：左右错开半拍（0.18s），快速上下 + 不透明度起伏，模拟连续打字 === */
-        .hero-overlay .tip-front, .hero-overlay .tip-back {
+        /* === (1) 双掌呼吸光晕 (大椭圆，1.4s 慢节奏，让整只手"在呼吸") === */
+        .hero-overlay .hand-zone-r, .hero-overlay .hand-zone-l {
           transform-box: fill-box;
           transform-origin: center;
-          animation: typeDown 0.36s cubic-bezier(.34,1.56,.64,1) infinite;
+          animation: handBreath 1.4s ease-in-out infinite;
         }
-        .hero-overlay .tip-back { animation-delay: 0.18s; }
+        .hero-overlay .hand-zone-l { animation-delay: .5s; }
 
-        /* === 2) 手腕呼吸光晕：1.6s 慢节奏上下飘，让手腕"在手腕处" === */
-        .hero-overlay .wrist-glow { transform-box: fill-box; transform-origin: center; animation: wristPulse 1.6s ease-in-out infinite; }
-
-        /* === 3) 咖啡杯热气：3 缕云气错相上升，4s 周期，轻盈不抢戏 === */
-        .hero-overlay .steam-puff { transform-box: fill-box; transform-origin: center; animation: steamRise 4s ease-out infinite; opacity: 0; }
-        .hero-overlay .steam-puff.s2 { animation-delay: 1.33s; }
-        .hero-overlay .steam-puff.s3 { animation-delay: 2.66s; }
-
-        /* === 4) 笔记本底部（屏幕底部边缘）的微泛光：表示屏幕点亮，2.4s 缓慢呼吸 === */
-        .hero-overlay .screen-glow { transform-box: fill-box; transform-origin: center; animation: screenBreath 2.4s ease-in-out infinite; }
-
-        @keyframes typeDown {
-          0%, 100% { transform: translateY(0); opacity: 0.42; }
-          45%, 55% { transform: translateY(-9px); opacity: 0.95; }
+        /* === (2) 指尖按下闪光 (大圆+内核，圆+亮+缩放) === */
+        .hero-overlay .fingertap-r, .hero-overlay .fingertap-l {
+          transform-box: fill-box;
+          transform-origin: center;
+          animation: fingerPress .4s cubic-bezier(.34,1.56,.64,1) infinite;
         }
-        @keyframes wristPulse {
-          0%, 100% { opacity: 0.18; transform: scale(1) translateY(0); }
-          50%      { opacity: 0.34; transform: scale(1.04) translateY(-3px); }
+        .hero-overlay .fingertap-l { animation-delay: .2s; }
+
+        /* === (3) 拖尾 echo (指尖下方残影，按下后向上飘) === */
+        .hero-overlay .fingertrail-r, .hero-overlay .fingertrail-l {
+          transform-box: fill-box;
+          transform-origin: center;
+          animation: trailEcho .4s ease-out infinite;
+          opacity: 0;
         }
-        @keyframes steamRise {
-          0%   { opacity: 0; transform: translateY(0) scale(0.85); }
-          18%  { opacity: 0.55; }
-          60%  { opacity: 0.32; }
-          100% { opacity: 0; transform: translateY(-55px) scale(1.6); }
+        .hero-overlay .fingertrail-l { animation-delay: .2s; }
+
+        /* === (4) 屏幕顶部 LED (开机指示灯，绿色 + drop-shadow 发光) === */
+        .hero-overlay .screen-led { animation: ledBreath 2s ease-in-out infinite; }
+
+        /* === (5) 屏幕顶端反光高光 (细横线，提示屏幕反光) === */
+        .hero-overlay .screen-shine { animation: shineFade 3.6s ease-in-out infinite; }
+
+        /* === (6) 咖啡杯热气 (3 缕错相上升) === */
+        .hero-overlay .steam { transform-box: fill-box; transform-origin: center; animation: steamUp 4s ease-out infinite; opacity: 0; }
+        .hero-overlay .steam.s2 { animation-delay: 1.33s; }
+        .hero-overlay .steam.s3 { animation-delay: 2.66s; }
+
+        @keyframes handBreath {
+          0%, 100% { opacity: 0; transform: scale(.85); }
+          50%      { opacity: .42; transform: scale(1.05); }
         }
-        @keyframes screenBreath {
-          0%, 100% { opacity: 0.32; }
-          50%      { opacity: 0.6; }
+        @keyframes fingerPress {
+          0%, 100% { opacity: .5; transform: scale(.85); }
+          45%, 55% { opacity: 1;  transform: scale(1.25); }
+        }
+        @keyframes trailEcho {
+          0%, 25% { opacity: 0;  transform: translateY(0) scale(1); }
+          50%     { opacity: .65; transform: translateY(-4px) scale(1.1); }
+          100%    { opacity: 0;  transform: translateY(-14px) scale(.85); }
+        }
+        @keyframes ledBreath {
+          0%, 100% { opacity: .35; }
+          45%, 55% { opacity: 1; }
+        }
+        @keyframes shineFade {
+          0%, 100% { opacity: .2; }
+          50%      { opacity: .55; }
+        }
+        @keyframes steamUp {
+          0%   { opacity: 0; transform: translateY(0) scale(.85); }
+          18%  { opacity: .65; }
+          60%  { opacity: .35; }
+          100% { opacity: 0; transform: translateY(-50px) scale(1.5); }
         }
       </style>
 
-      <!-- (1) 右手食指（更靠近相机，在键盘前排）：一颗暖橙 + 半透明白色描边圆，错相按下 -->
-      <g class="tip-front">
-        <ellipse cx="855" cy="712" rx="15" ry="11" fill="rgba(255,200,150,0.55)" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/>
-      </g>
-      <!-- (2) 左手食指（在键盘后排，右手手指之后）：错相 0.18s -->
-      <g class="tip-back">
-        <ellipse cx="1065" cy="680" rx="14" ry="10" fill="rgba(255,200,150,0.5)" stroke="rgba(255,255,255,0.8)" stroke-width="1.4"/>
-      </g>
+      <!-- (1) 右手呼吸光晕大椭圆 (近相机手，cx=620 cy=510) -->
+      <ellipse class="hand-zone-r" cx="620" cy="515" rx="85" ry="45" fill="rgba(255,225,190,.6)"/>
+      <!-- 左手呼吸光晕 (远侧手，cx=775 cy=485) -->
+      <ellipse class="hand-zone-l" cx="775" cy="488" rx="78" ry="40" fill="rgba(255,225,190,.55)"/>
 
-      <!-- (3) 双手手腕呼吸光晕（暖色椭圆，1.6s 慢节奏） -->
-      <g class="wrist-glow">
-        <ellipse cx="960" cy="730" rx="190" ry="22" fill="rgba(255,200,170,0.28)"/>
-      </g>
+      <!-- (2a) 右手指尖按下闪光 (外晕 + 内核) -->
+      <circle class="fingertap-r" cx="625" cy="518" r="18" fill="rgba(255,240,210,.95)"/>
+      <circle class="fingertap-r" cx="625" cy="518" r="10" fill="rgba(255,255,255,1)"/>
+      <!-- (2b) 左手指尖按下闪光 -->
+      <circle class="fingertap-l" cx="770" cy="492" r="16" fill="rgba(255,240,210,.9)"/>
+      <circle class="fingertap-l" cx="770" cy="492" r="9" fill="rgba(255,255,255,1)"/>
 
-      <!-- (4) 笔记本屏幕底部边缘微泛光（暖白色块，表示屏幕正在亮） -->
-      <g class="screen-glow">
-        <ellipse cx="1175" cy="540" rx="180" ry="14" fill="rgba(255,232,180,0.55)"/>
-      </g>
+      <!-- (3) 拖尾 echo (指尖下方暖橙色残影，按下后向上飘) -->
+      <circle class="fingertrail-r" cx="625" cy="528" r="13" fill="rgba(255,200,150,.65)"/>
+      <circle class="fingertrail-l" cx="770" cy="502" r="11" fill="rgba(255,200,150,.6)"/>
 
-      <!-- (5) 咖啡杯热气：3 缕云气错相上升 -->
-      <g>
-        <circle class="steam-puff"    cx="1280" cy="780" r="9" fill="rgba(255,255,255,0.7)"/>
-        <circle class="steam-puff s2" cx="1300" cy="775" r="7" fill="rgba(255,255,255,0.6)"/>
-        <circle class="steam-puff s3" cx="1268" cy="785" r="6" fill="rgba(255,255,255,0.55)"/>
-      </g>
+      <!-- (4) 屏幕顶部 LED 灯 (MacBook 开机指示，绿色 + drop-shadow 发光) -->
+      <circle class="screen-led" cx="858" cy="378" r="3.5" fill="#7cffcb" style="filter:drop-shadow(0 0 6px #7cffcb)"/>
+
+      <!-- (5) 屏幕顶端细反光高光 (细横线，从屏幕边缘延伸，提示屏幕反光) -->
+      <rect class="screen-shine" x="715" y="395" width="285" height="2.5" rx="1.25" fill="rgba(255,255,255,.65)"/>
+
+      <!-- (6) 咖啡杯热气 (3 缕白气错相上升) -->
+      <circle class="steam"    cx="915" cy="557" r="9" fill="rgba(255,255,255,.7)"/>
+      <circle class="steam s2" cx="930" cy="552" r="7" fill="rgba(255,255,255,.6)"/>
+      <circle class="steam s3" cx="900" cy="562" r="6" fill="rgba(255,255,255,.55)"/>
     </svg>
 
     <span class="float-deco d1">✦</span>
