@@ -165,6 +165,10 @@
   .scard h3{font-family:'Archivo Black',sans-serif;font-size:20px;line-height:1.15}
   .scard p{font-size:13px;margin-top:8px;line-height:1.5;opacity:.85}
   .sticker{position:absolute;bottom:16px;right:16px;background:#000;color:var(--accent);padding:6px 10px;border-radius:6px;font-size:11px;font-weight:800;transform:rotate(-4deg);border:1.5px solid #000}
+  .scard .stags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+  .scard .stags span{font-size:11px;padding:4px 10px;border-radius:999px;background:rgba(10,10,10,.08);color:#0a0a0a;font-weight:700;line-height:1.2}
+  .scard.dark .stags span{background:rgba(255,255,255,.14);color:#fff}
+  .scard.lime .stags span{background:rgba(10,10,10,.14);color:#0a0a0a}
 
   /* ===== avatar：圆胖小羊 SVG + 流光晕染 + 浮动呼吸 ===== */
   .avatar{aspect-ratio:1/1;border-radius:50%;position:relative;overflow:hidden;background:transparent;box-shadow:none;max-width:340px;margin:auto;padding:0}
@@ -362,12 +366,12 @@
 <section class="container reveal">
   <div class="sec-head"><h2>CORE STRENGTHS</h2><span class="zh">核心能力</span></div>
   <div class="str-grid">
-    <div class="scard lime"><h3>游戏数据分析</h3><p>付费率、ARPPU、等级分布等指标体系分析与解读。</p><div class="sticker">游戏 × 数据</div></div>
-    <div class="scard"><h3>用户行为研究</h3><p>从行为数据里看懂玩家，支撑体验优化决策。</p></div>
-    <div class="scard dark"><h3>AI Agent 应用</h3><p>Ollama / RAG / 提示词，把本地模型变成可用工具。</p></div>
-    <div class="scard"><h3>数据可视化</h3><p>Matplotlib / Excel，把数字讲成好看的故事。</p></div>
-    <div class="scard dark"><h3>内容创作</h3><p>Cosplay / 游戏剪辑 / 文案，小红书 1937 · 抖音 12.7万。</p></div>
-    <div class="scard"><h3>视觉审美</h3><p>3 岁起学美术，对构图、色彩、质感有长期积累。</p></div>
+    <div class="scard lime"><h3>游戏数据分析</h3><p>搭建付费率、ARPPU、等级分布等核心指标体系，对玩家生命周期数据做拆解与归因，输出可落地的运营建议。</p><div class="stags"><span>付费率</span><span>ARPPU</span><span>留存</span><span>LTV</span></div><div class="sticker">游戏 × 数据</div></div>
+    <div class="scard"><h3>用户行为研究</h3><p>从登录、关卡、付费等行为轨迹还原玩家画像，定位流失节点，为体验优化与活动设计提供数据支撑。</p><div class="stags"><span>行为漏斗</span><span>流失分析</span><span>玩家画像</span></div></div>
+    <div class="scard dark"><h3>AI Agent 应用</h3><p>基于 Ollama 本地部署开源模型，结合 RAG 与提示词工程，搭建能真正干活的 AI Agent，把大模型变成个人效率工具。</p><div class="stags"><span>Ollama</span><span>RAG</span><span>Prompt</span></div></div>
+    <div class="scard"><h3>数据可视化</h3><p>熟练使用 Matplotlib、Excel 等工具，把复杂数据转化为清晰有美感的图表与看板，让结论一眼可读。</p><div class="stags"><span>Matplotlib</span><span>Excel</span><span>看板</span></div></div>
+    <div class="scard dark"><h3>内容创作</h3><p>能写能剪能出镜：Cosplay 造型、游戏实况剪辑、平台文案全流程，小红书 1937 粉、抖音 12.7 万播放，懂内容也懂流量。</p><div class="stags"><span>Cosplay</span><span>剪辑</span><span>12.7万播放</span></div></div>
+    <div class="scard"><h3>视觉审美</h3><p>3 岁起接受系统美术训练，对构图、色彩、质感有 15 年以上的直觉积累，能独立把关视觉产出质量。</p><div class="stags"><span>构图</span><span>色彩</span><span>美术15年+</span></div></div>
   </div>
 </section>
 
