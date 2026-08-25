@@ -257,11 +257,14 @@
 
   <div class="hero-art">
     <span class="badge badge-pos">NEW PORTFOLIO</span>
-    <svg class="hero-img" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="卡通猫咪持续敲键盘的动态插画">
+    <svg class="hero-img" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="卡通人物持续敲键盘的动态插画">
       <defs>
-        <radialGradient id="catBody" cx="42%" cy="32%" r="78%">
-          <stop offset="0%" stop-color="#ffe6c8"/><stop offset="58%" stop-color="#ffce9c"/><stop offset="100%" stop-color="#f4ad72"/>
+        <radialGradient id="skin" cx="42%" cy="32%" r="80%">
+          <stop offset="0%" stop-color="#ffe3c8"/><stop offset="58%" stop-color="#f7c89c"/><stop offset="100%" stop-color="#eaa87f"/>
         </radialGradient>
+        <linearGradient id="shirt" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffb3c8"/><stop offset="100%" stop-color="#ff8fb8"/>
+        </linearGradient>
         <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#eaffd6"/><stop offset="100%" stop-color="#c6ef9c"/>
         </linearGradient>
@@ -270,101 +273,96 @@
         </linearGradient>
       </defs>
       <style>
-        .hero-img .pawL{transform-box:fill-box;transform-origin:center;animation:typ .46s ease-in-out infinite}
-        .hero-img .pawR{transform-box:fill-box;transform-origin:center;animation:typ .46s ease-in-out infinite;animation-delay:.23s}
+        .hero-img .handL{transform-box:fill-box;transform-origin:center;animation:typ .42s ease-in-out infinite}
+        .hero-img .handR{transform-box:fill-box;transform-origin:center;animation:typ .42s ease-in-out infinite;animation-delay:.21s}
         .hero-img .eye{transform-box:fill-box;transform-origin:center;animation:blink 4.4s infinite}
-        .hero-img .earL{transform-box:fill-box;transform-origin:bottom right;animation:earL 5.5s infinite}
-        .hero-img .earR{transform-box:fill-box;transform-origin:bottom left;animation:earR 5.5s infinite}
-        .hero-img .tail{transform-box:fill-box;transform-origin:left center;animation:tail 3.2s ease-in-out infinite}
         .hero-img .glow{animation:glow 2.6s ease-in-out infinite}
         .hero-img .bar{transform-box:fill-box;transform-origin:bottom center;animation:eq 1.1s ease-in-out infinite}
         .hero-img .bar.b2{animation-delay:-.3s}.hero-img .bar.b3{animation-delay:-.6s}.hero-img .bar.b4{animation-delay:-.15s}.hero-img .bar.b5{animation-delay:-.85s}
         .hero-img .spark{transform-box:fill-box;transform-origin:center;animation:rise 3.4s ease-in infinite}
         .hero-img .spark.s2{animation-delay:-1.1s}.hero-img .spark.s3{animation-delay:-2.2s}.hero-img .spark.s4{animation-delay:-1.7s}
-        @keyframes typ{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+        @keyframes typ{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
         @keyframes blink{0%,90%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}97%{transform:scaleY(1)}}
-        @keyframes earL{0%,78%,100%{transform:rotate(0)}84%{transform:rotate(-12deg)}90%{transform:rotate(0)}}
-        @keyframes earR{0%,68%,100%{transform:rotate(0)}74%{transform:rotate(10deg)}80%{transform:rotate(0)}}
-        @keyframes tail{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(10deg)}}
         @keyframes glow{0%,100%{opacity:.55}50%{opacity:1}}
         @keyframes eq{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
         @keyframes rise{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-120px);opacity:0}}
       </style>
 
       <!-- 桌面 -->
-      <rect x="0" y="430" width="960" height="110" fill="url(#desk)"/>
+      <rect x="0" y="448" width="960" height="92" fill="url(#desk)"/>
 
       <!-- 上飘的小星星 -->
       <g fill="#b6f24a">
-        <path class="spark" d="M180 360 l5 12 l12 5 l-12 5 l-5 12 l-5 -12 l-12 -5 l12 -5 z"/>
-        <path class="spark s2" fill="#ff8fb8" d="M800 340 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 z"/>
-        <path class="spark s3" d="M120 300 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 z"/>
-        <path class="spark s4" fill="#ff8fb8" d="M840 280 l5 12 l12 5 l-12 5 l-5 12 l-5 -12 l-12 -5 l12 -5 z"/>
+        <path class="spark" d="M180 372 l5 12 l12 5 l-12 5 l-5 12 l-5 -12 l-12 -5 l12 -5 z"/>
+        <path class="spark s2" fill="#ff8fb8" d="M800 352 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 z"/>
+        <path class="spark s3" d="M120 312 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 z"/>
+        <path class="spark s4" fill="#ff8fb8" d="M840 292 l5 12 l12 5 l-12 5 l-5 12 l-5 -12 l-12 -5 l12 -5 z"/>
       </g>
 
       <!-- 笔记本屏幕 -->
       <g>
-        <rect x="348" y="232" width="264" height="186" rx="18" fill="#2b2b33"/>
-        <rect x="362" y="246" width="236" height="158" rx="10" fill="url(#screen)" class="glow"/>
+        <rect x="400" y="300" width="160" height="116" rx="14" fill="#2b2b33"/>
+        <rect x="412" y="312" width="136" height="92" rx="8" fill="url(#screen)" class="glow"/>
         <!-- 屏幕上的动态柱状图（数据感） -->
         <g fill="#3a8f2f">
-          <rect class="bar"    x="384" y="300" width="20" height="80" rx="6"/>
-          <rect class="bar b2" x="416" y="300" width="20" height="80" rx="6"/>
-          <rect class="bar b3" x="448" y="300" width="20" height="80" rx="6"/>
-          <rect class="bar b4" x="480" y="300" width="20" height="80" rx="6"/>
-          <rect class="bar b5" x="512" y="300" width="20" height="80" rx="6"/>
-          <rect class="bar b2" x="544" y="300" width="20" height="80" rx="6"/>
+          <rect class="bar"    x="428" y="342" width="14" height="50" rx="5"/>
+          <rect class="bar b2" x="450" y="342" width="14" height="50" rx="5"/>
+          <rect class="bar b3" x="472" y="342" width="14" height="50" rx="5"/>
+          <rect class="bar b4" x="494" y="342" width="14" height="50" rx="5"/>
+          <rect class="bar b5" x="516" y="342" width="14" height="50" rx="5"/>
         </g>
         <g fill="#2f6f25" opacity=".5">
-          <rect x="384" y="262" width="150" height="8" rx="4"/>
-          <rect x="384" y="278" width="100" height="8" rx="4"/>
+          <rect x="428" y="322" width="92" height="7" rx="3.5"/>
+          <rect x="428" y="334" width="62" height="7" rx="3.5"/>
         </g>
       </g>
 
       <!-- 笔记本底座 / 键盘 -->
-      <path d="M300 418 L660 418 L700 470 L260 470 Z" fill="#3a3a44"/>
-      <path d="M312 426 L648 426 L678 462 L282 462 Z" fill="#4a4a56"/>
+      <path d="M360 414 L600 414 L640 462 L320 462 Z" fill="#3a3a44"/>
+      <path d="M372 422 L588 422 L616 454 L344 454 Z" fill="#4a4a56"/>
       <g fill="#c9c9d6">
-        <rect x="320" y="436" width="320" height="6" rx="3"/>
-        <rect x="330" y="448" width="300" height="6" rx="3"/>
+        <rect x="380" y="432" width="200" height="6" rx="3"/>
+        <rect x="388" y="444" width="184" height="6" rx="3"/>
       </g>
 
-      <!-- 尾巴（右侧，摆动） -->
-      <path class="tail" d="M660 470 q70 -10 78 -70 q6 -50 -34 -78 q40 30 26 76 q-14 46 -70 50 z" fill="url(#catBody)"/>
-
-      <!-- 猫咪头 + 身体（屏幕后方，角色只画一次） -->
+      <!-- 人物（头→脖子→身体 连成一体，不悬空） -->
       <g>
-        <path class="earL" d="M392 150 L372 70 L452 120 Z" fill="url(#catBody)"/>
-        <path class="earR" d="M568 150 L588 70 L508 120 Z" fill="url(#catBody)"/>
-        <path d="M404 140 L392 92 L436 126 Z" fill="#ff9ec4"/>
-        <path d="M556 140 L568 92 L524 126 Z" fill="#ff9ec4"/>
-        <path d="M360 430 q120 -90 240 0 l0 40 l-240 0 z" fill="url(#catBody)"/>
-        <ellipse cx="480" cy="190" rx="100" ry="92" fill="url(#catBody)"/>
-        <circle cx="412" cy="212" r="20" fill="#ff9ec4" opacity=".6"/>
-        <circle cx="548" cy="212" r="20" fill="#ff9ec4" opacity=".6"/>
+        <!-- 衣服 / 身体 -->
+        <path d="M384 300 Q480 258 576 300 L596 452 L364 452 Z" fill="url(#shirt)"/>
+        <!-- 脖子 -->
+        <rect x="466" y="244" width="28" height="34" fill="url(#skin)"/>
+        <!-- 头 -->
+        <circle cx="480" cy="190" r="72" fill="url(#skin)"/>
+        <!-- 头发（中性短发，无性别提示、无蝴蝶结） -->
+        <path d="M406 184 Q402 102 480 102 Q558 102 554 184 Q538 150 480 150 Q422 150 406 184 Z" fill="#6b4f3a"/>
+        <!-- 眉毛 -->
+        <path d="M432 166 q16 -8 32 0" stroke="#6b4f3a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M496 166 q16 -8 32 0" stroke="#6b4f3a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- 眼睛（眨眼） -->
         <g class="eye">
-          <ellipse cx="440" cy="188" rx="15" ry="21" fill="#3a2b25"/>
-          <ellipse cx="520" cy="188" rx="15" ry="21" fill="#3a2b25"/>
-          <circle cx="446" cy="180" r="5.5" fill="#fff"/>
-          <circle cx="526" cy="180" r="5.5" fill="#fff"/>
+          <ellipse cx="452" cy="178" rx="11" ry="15" fill="#3a2b25"/>
+          <ellipse cx="508" cy="178" rx="11" ry="15" fill="#3a2b25"/>
+          <circle cx="456" cy="172" r="4" fill="#fff"/>
+          <circle cx="512" cy="172" r="4" fill="#fff"/>
         </g>
-        <path d="M470 214 L490 214 L480 226 Z" fill="#ff7aa8"/>
-        <path d="M480 226 Q468 238 458 230" stroke="#3a2b25" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-        <path d="M480 226 Q492 238 502 230" stroke="#3a2b25" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-        <g stroke="#3a2b25" stroke-width="2.6" stroke-linecap="round" opacity=".8">
-          <path d="M360 198 L318 188"/><path d="M360 212 L318 218"/>
-          <path d="M600 198 L642 188"/><path d="M600 212 L642 218"/>
-        </g>
-        <path d="M480 116 l10 20 l-10 10 l-10 -10 z" fill="#ff9ec4" opacity=".55"/>
+        <!-- 鼻子 -->
+        <path d="M480 196 l-5 9 l10 0 z" fill="#e0a878"/>
+        <!-- 嘴（微笑） -->
+        <path d="M462 214 Q480 230 498 214" stroke="#b5566f" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- 腮红 -->
+        <circle cx="424" cy="202" r="14" fill="#ff8fb8" opacity=".5"/>
+        <circle cx="536" cy="202" r="14" fill="#ff8fb8" opacity=".5"/>
       </g>
 
-      <!-- 键盘上的爪子（前景，交替抬起=敲键盘） -->
+      <!-- 手臂 + 手（前景，放在键盘上交替抬起=敲键盘） -->
       <g>
-        <ellipse class="pawL" cx="430" cy="452" rx="26" ry="18" fill="url(#catBody)"/>
-        <ellipse class="pawR" cx="530" cy="452" rx="26" ry="18" fill="url(#catBody)"/>
-        <g stroke="#d98e57" stroke-width="2" opacity=".7">
-          <path class="pawL" d="M420 452 v13 M430 452 v13 M440 452 v13"/>
-          <path class="pawR" d="M520 452 v13 M530 452 v13 M540 452 v13"/>
+        <path d="M404 306 Q402 386 445 430" stroke="url(#skin)" stroke-width="22" fill="none" stroke-linecap="round"/>
+        <path d="M556 306 Q558 386 515 430" stroke="url(#skin)" stroke-width="22" fill="none" stroke-linecap="round"/>
+        <circle class="handL" cx="445" cy="432" r="19" fill="url(#skin)"/>
+        <circle class="handR" cx="515" cy="432" r="19" fill="url(#skin)"/>
+        <g stroke="#e0a878" stroke-width="2" opacity=".7">
+          <path class="handL" d="M433 432 v13 M445 432 v13 M457 432 v13"/>
+          <path class="handR" d="M503 432 v13 M515 432 v13 M527 432 v13"/>
         </g>
       </g>
     </svg>
@@ -486,48 +484,56 @@
   <div class="about">
     <div class="avatar">
     <div class="avatar-frame">
-      <svg class="avatar-cat" viewBox="0 0 320 320" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="卡通猫咪头像 / 持续眨眼与呼吸动画">
+      <svg class="avatar-cat" viewBox="0 0 320 320" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="卡通人物头像 / 持续眨眼与呼吸动画">
+        <defs>
+          <radialGradient id="aSkin" cx="42%" cy="32%" r="80%">
+            <stop offset="0%" stop-color="#ffe3c8"/><stop offset="58%" stop-color="#f7c89c"/><stop offset="100%" stop-color="#eaa87f"/>
+          </radialGradient>
+          <linearGradient id="aShirt" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffb3c8"/><stop offset="100%" stop-color="#ff8fb8"/>
+          </linearGradient>
+        </defs>
         <style>
           .avatar-cat .eye{transform-box:fill-box;transform-origin:center;animation:blink 4.2s infinite}
-          .avatar-cat .earL{transform-box:fill-box;transform-origin:bottom right;animation:earL 5s infinite}
-          .avatar-cat .earR{transform-box:fill-box;transform-origin:bottom left;animation:earR 5s infinite}
-          .avatar-cat .head{transform-box:fill-box;transform-origin:center;animation:breathe 4s ease-in-out infinite}
+          .avatar-cat .person{transform-box:fill-box;transform-origin:bottom center;animation:breathe 4s ease-in-out infinite}
           .avatar-cat .spark{transform-box:fill-box;transform-origin:center;animation:tw 3s ease-in-out infinite}
           .avatar-cat .spark:nth-of-type(2){animation-delay:-1s}
           .avatar-cat .spark:nth-of-type(3){animation-delay:-2s}
           @keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}97%{transform:scaleY(1)}}
-          @keyframes earL{0%,80%,100%{transform:rotate(0)}85%{transform:rotate(-10deg)}90%{transform:rotate(0)}}
-          @keyframes earR{0%,70%,100%{transform:rotate(0)}75%{transform:rotate(8deg)}80%{transform:rotate(0)}}
-          @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+          @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
           @keyframes tw{0%,100%{opacity:.4;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
         </style>
-        <g class="head">
-          <path class="earL" d="M104 92 L96 40 L150 78 Z" fill="#ffceA0"/>
-          <path class="earR" d="M216 92 L224 40 L170 78 Z" fill="#ffceA0"/>
-          <path d="M108 84 L104 56 L132 76 Z" fill="#ff9ec4"/>
-          <path d="M212 84 L216 56 L188 76 Z" fill="#ff9ec4"/>
-          <ellipse cx="160" cy="160" rx="92" ry="84" fill="#ffd9b0"/>
-          <circle cx="108" cy="178" r="16" fill="#ffb3c8" opacity=".7"/>
-          <circle cx="212" cy="178" r="16" fill="#ffb3c8" opacity=".7"/>
+        <g class="person">
+          <!-- 衣服 / 肩 -->
+          <path d="M64 320 Q64 236 160 226 Q256 236 256 320 Z" fill="url(#aShirt)"/>
+          <!-- 脖子 -->
+          <rect x="144" y="198" width="32" height="34" fill="url(#aSkin)"/>
+          <!-- 头 -->
+          <circle cx="160" cy="140" r="64" fill="url(#aSkin)"/>
+          <!-- 头发（中性短发，无性别提示） -->
+          <path d="M96 140 Q96 64 160 64 Q224 64 224 140 Q210 108 160 108 Q110 108 96 140 Z" fill="#6b4f3a"/>
+          <!-- 眉毛 -->
+          <path d="M120 120 q14 -7 28 0" stroke="#6b4f3a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <path d="M172 120 q14 -7 28 0" stroke="#6b4f3a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <!-- 眼睛（眨眼） -->
           <g class="eye">
-            <ellipse cx="128" cy="158" rx="13" ry="18" fill="#3a2b25"/>
-            <ellipse cx="192" cy="158" rx="13" ry="18" fill="#3a2b25"/>
-            <circle cx="133" cy="151" r="4.5" fill="#fff"/>
-            <circle cx="197" cy="151" r="4.5" fill="#fff"/>
+            <ellipse cx="136" cy="142" rx="10" ry="14" fill="#3a2b25"/>
+            <ellipse cx="184" cy="142" rx="10" ry="14" fill="#3a2b25"/>
+            <circle cx="140" cy="136" r="3.6" fill="#fff"/>
+            <circle cx="188" cy="136" r="3.6" fill="#fff"/>
           </g>
-          <path d="M152 180 L168 180 L160 190 Z" fill="#ff7aa8"/>
-          <path d="M160 190 Q150 200 142 194" stroke="#3a2b25" stroke-width="3" fill="none" stroke-linecap="round"/>
-          <path d="M160 190 Q170 200 178 194" stroke="#3a2b25" stroke-width="3" fill="none" stroke-linecap="round"/>
-          <g stroke="#3a2b25" stroke-width="2.2" stroke-linecap="round" opacity=".8">
-            <path d="M96 168 L60 160"/><path d="M96 178 L60 182"/>
-            <path d="M224 168 L260 160"/><path d="M224 178 L260 182"/>
-          </g>
-          <path d="M160 96 l8 16 l-8 8 l-8 -8 z" fill="#ff9ec4" opacity=".6"/>
+          <!-- 鼻子 -->
+          <path d="M160 158 l-5 9 l10 0 z" fill="#e0a878"/>
+          <!-- 嘴（微笑） -->
+          <path d="M144 176 Q160 190 176 176" stroke="#b5566f" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <!-- 腮红 -->
+          <circle cx="118" cy="164" r="13" fill="#ff8fb8" opacity=".5"/>
+          <circle cx="202" cy="164" r="13" fill="#ff8fb8" opacity=".5"/>
         </g>
         <g fill="#b6f24a">
-          <path class="spark" d="M250 70 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 z"/>
-          <path class="spark" d="M70 250 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 l8 -3 z"/>
-          <path class="spark" fill="#ff8fb8" d="M265 200 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 l8 -3 z"/>
+          <path class="spark" d="M250 72 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 z"/>
+          <path class="spark" d="M70 252 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 l8 -3 z"/>
+          <path class="spark" fill="#ff8fb8" d="M265 202 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 l8 -3 z"/>
         </g>
       </svg>
     </div>
@@ -577,10 +583,33 @@
       radial.classList.toggle('open');
       radial.setAttribute('aria-expanded', radial.classList.contains('open'));
     }
-    // 只点中央圆圈切换展开/收起
+    // 按下中央雪花按钮 → 撒一把雪花
+    function burstSnow(cx, cy){
+      var N = 28, pal = ['',' pink',' tint'];
+      for(var i=0;i<N;i++){
+        var f = document.createElement('div');
+        f.className = 'snow' + pal[i % 3];
+        var size = 6 + Math.random()*16;
+        f.style.width = size+'px'; f.style.height = size+'px';
+        f.style.left = cx+'px'; f.style.top = cy+'px';
+        document.body.appendChild(f);
+        var dx = (Math.random()-0.5)*320, dy = -(60+Math.random()*260), rot = Math.random()*1080, dur = 1300+Math.random()*900;
+        try{
+          f.animate([
+            {transform:'translate(0,0) scale(0) rotate(0)',opacity:0},
+            {transform:'translate('+(dx*0.3)+'px,'+(dy*0.2)+'px) scale(1.5) rotate('+(rot*0.3)+'deg)',opacity:1,offset:.12},
+            {transform:'translate('+dx+'px,'+dy+'px) scale(0) rotate('+rot+'deg)',opacity:0}
+          ], {duration:dur, easing:'cubic-bezier(.4,0,.2,1)', fill:'forwards'});
+        }catch(_){}
+        setTimeout((function(el){return function(){el&&el.remove();};})(f), dur+200);
+      }
+    }
+    // 只点中央圆圈切换展开/收起，并喷雪花
     core.addEventListener('click', function(e){
       e.stopPropagation();
       toggle();
+      var r = core.getBoundingClientRect();
+      burstSnow(r.left + r.width/2, r.top + r.height/2);
     });
     // 键盘可达（圆圈聚焦后按 Enter / Space）
     core.setAttribute('tabindex','0');
