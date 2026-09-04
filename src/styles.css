@@ -129,6 +129,12 @@ html,body,#root{margin:0;min-height:100%;padding:0;box-sizing:border-box;overflo
 @keyframes flowerFloat{0%{translate:-8vw 10vh rotate(-12deg)}50%{translate:12vw -5vh rotate(18deg)}100%{translate:-5vw 15vh rotate(-20deg)}}
 @keyframes flowerBloom{0%{scale:.45;opacity:.15}45%{scale:.82;opacity:.52}100%{scale:1.08;opacity:.78}}
 
+/* Final small desktop/mobile typography adjustment requested by the owner. */
+.portfolio h1{font-size:clamp(62px,8.1vw,132px)!important}
+.portfolio-page>h2{font-size:clamp(64px,7.8vw,126px)!important}
+.portfolio-top small,.portfolio-page>small,.home-links b,.hero-metrics small,.hero-metrics span,.about-stats small,.field-note>small,.method-page .method-heading p,.method-grid article small,.portfolio-page p{color:#5f6970!important}
+@media(max-width:800px){.portfolio h1{font-size:clamp(46px,12vw,74px)!important}.portfolio-page>h2{font-size:clamp(50px,13vw,74px)!important}}
+
 /* Reliable local entry: one black door, one narrow opening, no baked video artifacts. */
 .gate{isolation:isolate;background:#050505!important;color:#fff}
 .gate-ambient{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 46%,#29241e 0,#0b0a09 38%,#020202 78%);z-index:0}

@@ -82,6 +82,10 @@
 术语必须写作 `Pandas`，平台名称必须写作“抖音”。不得把 Pandas 翻译成“熊猫”，不得写错“抖音”。
 
 ## 工程与安全
+- 本仓库实际使用的开源依赖：React 18、React DOM、Vite、TypeScript、Tailwind CSS 配置、`lottie-web` 和 `lucide-react`。`Flower2` 来自 `lucide-react`，只用于页面装饰图标。
+- 本仓库实际使用的动画实现：入口和主页背景主要由 `src/styles.css` 的 CSS `transform`、`opacity`、`perspective`、`@keyframes` 实现，Lottie 通过 `lottie-web` 挂载 `public/heartbeat.json`，主页动态背景使用仓库内的 `microvisuals-bg.mp4`。
+- 当前版本没有安装或调用 GSAP，也没有导入某个开源门动画模板。以后若使用 GSAP，必须把依赖、调用位置、版本和来源记录在这里，并先验证移动端性能。
+- `microvisuals-bg.mp4` 是本仓库内的动态视频资源，`heartbeat.json` 是随项目保存的 Lottie 资源；AI 只有在取得整个仓库及这些资源时，才能复现相同画面。只拿 Skill 文档不能凭空生成相同视频。
 - React 项目优先使用现有 GSAP、Lottie 和依赖，不重复引入 UI 套件。
 - 修改前检查入口和端口，避免旧服务或缓存。
 - 提交前运行 `npm run build`，并全文检查敏感信息。
