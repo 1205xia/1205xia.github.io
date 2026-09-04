@@ -127,3 +127,11 @@ html,body,#root{margin:0;min-height:100%;padding:0;box-sizing:border-box;overflo
 /* Keep the restored garden-door version; only reduce the homepage headline slightly. */
 .portfolio-home>h1{font-size:clamp(58px,7.7vw,126px)!important;line-height:.88!important}
 @media(max-width:800px){.portfolio-home>h1{font-size:clamp(44px,11.5vw,70px)!important;line-height:.9!important}}
+
+/* Confirmed desktop type scale: retain the editorial layout while reducing only these two display headlines. */
+.portfolio-home>h1{font-size:clamp(54px,6.9vw,112px)!important;line-height:.9!important}
+.contact-layout h2{font-size:clamp(62px,7.5vw,122px)!important;line-height:.92!important}
+@media(max-width:800px){
+  .portfolio-home>h1{font-size:clamp(42px,10.5vw,64px)!important}
+  .contact-layout h2{font-size:clamp(52px,12vw,72px)!important}
+}
