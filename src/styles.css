@@ -74,6 +74,8 @@ html,body,#root{margin:0;min-height:100%;padding:0;box-sizing:border-box;overflo
 .gate.is-opening .gate-door:after{transform:translateX(42px)!important}
 .gate-door:after{display:none!important}
 .gate-door:before,.gate-door:after{content:none!important;display:none!important;animation:none!important;box-shadow:none!important}
+.gate-door,.gate-door::before,.gate-door::after,.gate-door span,.gate-door b{content:none!important;background:transparent!important;border:0!important;box-shadow:none!important;display:block!important}
+.gate-door::before,.gate-door::after{display:none!important!important}
 .butterfly{display:none!important;animation:none!important}
 .gate.is-opening .gold-flash{display:block!important;z-index:9!important;background:#fff!important;mix-blend-mode:normal!important;animation:doorWhiteFlash 3s ease-in-out 1.15s forwards!important}
 @keyframes doorWhiteFlash{0%{opacity:0}15%{opacity:1}48%{opacity:1}78%{opacity:.72}100%{opacity:0}}
