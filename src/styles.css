@@ -129,5 +129,12 @@ html,body,#root{margin:0;min-height:100%;padding:0;box-sizing:border-box;overflo
 @keyframes flowerFloat{0%{translate:-8vw 10vh rotate(-12deg)}50%{translate:12vw -5vh rotate(18deg)}100%{translate:-5vw 15vh rotate(-20deg)}}
 @keyframes flowerBloom{0%{scale:.45;opacity:.15}45%{scale:.82;opacity:.52}100%{scale:1.08;opacity:.78}}
 
+/* Slightly reduce oversized editorial headings without changing the hierarchy. */
+.portfolio h1{font-size:clamp(64px,8.2vw,138px)!important}
+.portfolio-page>h2{font-size:clamp(66px,8vw,132px)!important}
+.content-grid h3,.project h3,.method-grid h3{font-size:clamp(35px,4.05vw,64px)!important}
+.contact-layout h2{font-size:clamp(70px,8.8vw,142px)!important}
+@media(max-width:800px){.portfolio h1{font-size:clamp(48px,12.5vw,78px)!important}.portfolio-page>h2{font-size:clamp(52px,13.5vw,76px)!important}.content-grid h3,.project h3,.method-grid h3{font-size:clamp(30px,8.5vw,48px)!important}.contact-layout h2{font-size:clamp(58px,14vw,84px)!important}}
+
 /* Slightly stronger supporting text for desktop readability. */
 .portfolio-top small,.portfolio-page>small,.home-links b,.hero-metrics small,.hero-metrics span,.about-stats small,.field-note>small,.method-page .method-heading p,.method-grid article small,.portfolio-page p{color:#5d6870!important}
