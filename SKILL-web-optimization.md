@@ -43,6 +43,24 @@
 - GSAP 或 CSS transform，让光带、颗粒、轨迹、液态形状或抽象物体明显位移、旋转、缩放和漂浮。
 动画优先使用 `transform`、`opacity`，不能遮挡文字。配色遵循用户确认，避免默认青蓝、荧光粉和模板感。尊重 `prefers-reduced-motion`。
 
+## 本项目的可复刻实现配方
+
+要复现本项目当前版本，不能只读取文字规范，还必须读取仓库中的源码和资源：
+
+- 依赖：React 18、Vite、TypeScript、`lottie-web`；当前项目也保留 Tailwind 配置。
+- 入口实现位于 `src/main.tsx` 的 `gate` 分支；点击状态为 `opening`，约 2500ms 后切换 `entered`。
+- 入口结构使用 `.gate-ambient`、`.gate-frame`、`.gate-door`、`.door-panel`、`.door-edge`、`.entry-flash`。
+- 门面 `.door-panel` 的 `transform-origin` 为左侧中心，点击后使用 `perspective(1100px) rotateY(-38deg)`，持续约 1150ms，模拟单扇门只打开门缝。
+- 白光 `.entry-flash` 延迟约 1050ms，使用约 1100ms 的 `opacity` 时间线；不能使用旧的 `gold-flash`、`.sandfall`、蝴蝶、星星、光圈或门把手。
+- 内页动态背景必须同时使用或等价替代：`public/microvisuals-bg.mp4` 的本地循环视频、`.portfolio-liquid` 的大面积缓慢位移、`.portfolio-motion` 的可见粒子与轨迹、`public/heartbeat.json` 通过 `lottie-web` 挂载到 `.lottie-bg`。
+- 背景动态的关键不是换颜色，而是让背景视频、液态光带、粒子和 Lottie 在页面中持续发生明显位移、旋转或缩放；内容层的 z-index 必须高于背景。
+- 这些资源是本项目仓库内的实际资源：`microvisuals-bg.mp4` 为项目使用的本地动态背景视频，`heartbeat.json` 为用户提供的 Lottie 动画文件。它们不是由 Skill 文字自动生成的，也不是外部开源门动画模板。
+- 如果资源没有随 Skill 一起提供，AI 只能按照配方重写近似效果，不能保证产生一模一样的视频画面。因此交付给其他 AI 时，应同时提供整个仓库或至少提供 `src/`、`public/`、`package.json` 和本 Skill。
+
+## 复刻提示词
+
+“请先读取本 Skill 和仓库源码。不要先改个人资料。先向用户确认姓名、网站目的、栏目、项目数据、公开联系方式、颜色、字体、图片、动效和设备范围，得到确认后再实施。保留现有个人主页内容和网格排版。入口必须是黑色单扇门：不使用远程视频，不使用光圈、星星、蝴蝶、流沙或门把手；点击后 `.door-panel` 从左侧门轴以 `perspective(1100px) rotateY(-38deg)` 打开一道门缝，约 1050ms 后白光曝光，约 2500ms 后进入主页。主页背景读取 `public/microvisuals-bg.mp4`、`public/heartbeat.json`，并让液态光带、粒子、轨迹和 Lottie 产生肉眼可见的 transform 动画。必须提供视频失败时的静态兜底，确保微信和手机不黑屏。完成后运行 `npm run build`，检查敏感信息，再测试桌面、手机和微信内置浏览器。”
+
 ## 内容结构
 默认栏目为“关于我、项目经历、工作方式、联系我”，可按用户回答增删。
 
