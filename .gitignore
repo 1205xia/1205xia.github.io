@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.tsbuildinfo
+frame-*.jpg
+video-first.jpg
+legacy-portfolio.html
+.env
+.env.*
