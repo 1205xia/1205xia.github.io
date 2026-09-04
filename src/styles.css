@@ -135,3 +135,7 @@ html,body,#root{margin:0;min-height:100%;padding:0;box-sizing:border-box;overflo
   .portfolio-home>h1{font-size:clamp(42px,10.5vw,64px)!important}
   .contact-layout h2{font-size:clamp(52px,12vw,72px)!important}
 }
+
+/* Keep motion visible while the larger background video is buffering. */
+.portfolio-video-bg{transform:scale(1.06);animation:portfolioVideoDrift 18s ease-in-out infinite alternate!important;will-change:transform}
+@keyframes portfolioVideoDrift{0%{transform:scale(1.06) translate3d(-2.5%,-1.5%,0)}50%{transform:scale(1.12) translate3d(2%,2%,0)}100%{transform:scale(1.08) translate3d(-1%,4%,0)}}
