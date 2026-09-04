@@ -128,7 +128,3 @@ html,body,#root{margin:0;min-height:100%;padding:0;box-sizing:border-box;overflo
 .flower-a{left:7%;top:18%;animation-delay:-1s}.flower-b{right:11%;top:37%;width:54px;height:54px;animation-delay:-6s;filter:hue-rotate(35deg) blur(.2px)}.flower-c{left:42%;bottom:6%;width:96px;height:96px;animation-delay:-10s;filter:hue-rotate(-20deg) blur(.2px)}.flower-d{right:27%;top:9%;width:42px;height:42px;animation-delay:-13s;filter:hue-rotate(70deg) blur(.2px)}
 @keyframes flowerFloat{0%{translate:-8vw 10vh rotate(-12deg)}50%{translate:12vw -5vh rotate(18deg)}100%{translate:-5vw 15vh rotate(-20deg)}}
 @keyframes flowerBloom{0%{scale:.45;opacity:.15}45%{scale:.82;opacity:.52}100%{scale:1.08;opacity:.78}}
-
-/* The source door video contains a baked-in "点击进入" caption on its lintel. */
-.gate-shade:after{content:"";position:absolute;left:50%;top:calc(50% - min(36vh,360px) + 1.5%);width:min(13vw,170px);height:min(3.8vh,36px);transform:translateX(-50%);background:linear-gradient(90deg,rgba(5,5,5,.92),rgba(18,14,10,.98) 50%,rgba(5,5,5,.92));box-shadow:0 0 8px rgba(0,0,0,.5);z-index:2;pointer-events:none}
-@media(max-width:800px){.gate-shade:after{top:calc(50% - 29vh + 1.2%);width:25vw;height:3.2vh}}
