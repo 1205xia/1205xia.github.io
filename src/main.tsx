@@ -1,4 +1,4 @@
-import { StrictMode, useEffect, useState } from 'react'
+import { StrictMode, useEffect, useState, type FormEvent } from 'react'
 import lottie from 'lottie-web'
 import { createRoot } from 'react-dom/client'
 import { Flower2 } from 'lucide-react'
@@ -14,7 +14,41 @@ function App() {
   const [mounted, setMounted] = useState(false)
   const [visitors, setVisitors] = useState(0)
   const [messages, setMessages] = useState<{ name: string, content: string, created_at: string }[]>([])
-  useEffect(() => { const el = document.querySelector('.lottie-bg'); if (!el) return; const anim = lottie.loadAnimation({ container: el as HTMLElement, renderer: 'svg', loop: true, autoplay: true, path: '/heartbeat.json' }); return () => anim.destroy() }, [])
+  const [submitting, setSubmitting] = useState(false)
+  const [messageStatus, setMessageStatus] = useState('')
+  async function submitMessage(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    if (submitting) return
+    const form = e.currentTarget
+    const data = new FormData(form)
+    const name = String(data.get('name') || '').trim()
+    const content = String(data.get('content') || '').trim()
+    if (!name || !content) { setMessageStatus('请填写名字和留言内容。'); return }
+    setSubmitting(true)
+    setMessageStatus('正在提交…')
+    const controller = new AbortController()
+    const timeout = window.setTimeout(() => controller.abort(), 15000)
+    try {
+      const response = await fetch(`${API_BASE}/api/message`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, content }), signal: controller.signal,
+      })
+      if (!response.ok) {
+        setMessageStatus(response.status === 503 ? '留言服务暂时不可用，请稍后重试。内容已保留。' : `提交失败（${response.status}），请稍后重试。内容已保留。`)
+        return
+      }
+      form.reset()
+      setMessageStatus('留言已提交，谢谢！')
+      // A refresh failure must not turn an accepted message into a submission failure.
+      void fetch(`${API_BASE}/api/messages`).then(r => { if (!r.ok) throw new Error('Refresh failed'); return r.json() }).then(d => { if (Array.isArray(d)) setMessages(d) }).catch(() => {})
+    } catch {
+      setMessageStatus('暂时无法确认提交结果，请稍后查看，避免重复提交。内容已保留。')
+    } finally {
+      window.clearTimeout(timeout)
+      setSubmitting(false)
+    }
+  }
+  useEffect(() => { const el = document.querySelector('.lottie-bg'); if (!el) return; const anim = lottie.loadAnimation({ container: el as HTMLElement, renderer: 'svg', loop: true, autoplay: true, path: '/heartbeat.json' }); return () => anim.destroy() }, [entered])
   useEffect(() => { const t = setTimeout(() => setMounted(true), 120); return () => clearTimeout(t) }, [])
   useEffect(() => { fetch(`${API_BASE}/api/stats`).then(r => r.json()).then(d => setVisitors(d.visitors)).catch(() => {}) }, [])
   useEffect(() => { fetch(`${API_BASE}/api/messages`).then(r => r.json()).then(d => setMessages(d)).catch(() => {}) }, [])
@@ -25,7 +59,7 @@ function App() {
     {section === 'projects' && <section className="portfolio-page"><button className="return" onClick={() => setSection('home')}>← 返回封面</button><h2>Selected <em>work</em></h2><p className="section-lead">不把练习项目写成成熟商业案例，按真实投入、使用工具和可见产出呈现。</p><div className="hero-metrics"><div><small>DOUYIN / PEAK REACH</small><b>12.4 万</b><span>最高播放量 · 点赞 4.1 万</span></div><div><small>XIAOHONGSHU / PEAK REACH</small><b>5.6 万</b><span>最高播放量 · 点赞 1.5 万</span></div></div>{[['北辰青年 / 校园行动合伙人','参与大学生课外实践活动需求调研，完成问卷资料整理与分析，协作产出调研报告、汇报 PPT 和招募长海报。重点经验是把多人协作中的零散信息，整理成可以汇报和交付的结果。','使用：问卷数据整理 · 信息归纳 · 报告结构 · PPT 表达 · 视觉排版 · 93 份问卷 · 3 类交付'],['内容运营 / 双平台数据复盘','围绕游戏、二次元与 Cosplay 内容，参与选题、制作、发布和数据复盘，用平台反馈迭代内容方向。最高表现内容：抖音最高播放量 12.4 万、点赞 4.1 万；小红书最高播放量 5.6 万、点赞 1.5 万。','使用：内容选题 · 平台数据观察 · 数据复盘 · 视觉素材与剪辑工具 · 抖音 12.4 万 · 小红书 5.6 万'],['数据分析学习项目','围绕销售、用户增长和行为数据练习分析流程：明确问题、清洗数据、拆解指标、完成查询或计算，再输出结论和建议。当前重点是让基础能力变得稳定，而不是堆砌工具名称。','使用：Excel · SQL · Pandas · 基础可视化 · 指标拆解 · 能力建设中'],['个人 AI 工具探索','尝试使用知识库、提示词和本地工具改善日常工作流，包括资料整理、任务拆解和内容生成。它是辅助效率的探索，目前不把它包装成已经完成的 AI 产品。','使用：知识库 · Prompt · 本地工具 · 工作流设计 · 探索阶段']].map(([title, copy, tools], i) => <article className="project" key={title}><i>0{i + 1}</i><div><h3>{title}</h3><p>{copy}</p><strong>{tools}</strong></div></article>)}</section>}
     {section === 'strengths' && <section className="portfolio-page method-page"><button className="return" onClick={() => setSection('home')}>← 返回封面</button><div className="method-heading"><div><h2>My <em>method</em></h2><p>我的工作方式不是一句口号，而是一套可以被复盘、被验证、也能持续改进的动作。</p></div></div><div className="method-grid">{[['先找问题','从目标开始拆解','先确认要回答什么问题、最后要交付什么，再决定该看哪些资料、指标和信息。','项目体现：把调研需求转成问卷和分析方向','DEFINE / QUESTION'],['再做结构','把混乱变成路径','面对大量资料和协作任务，建立清晰的表格、目录或步骤，让团队知道下一步做什么。','项目体现：整理 93 份问卷并参与报告结构梳理','ORGANIZE / SYSTEM'],['最后交付','让结果能被使用','不止停留在“做过”，而是把分析结论、汇报页面或视觉内容整理到可以阅读、沟通和复用。','项目体现：参与报告、PPT 与招募海报交付','DELIVER / IMPACT']].map(([label,title,copy,evidence,english], i) => <article key={title}><b>0{i + 1} / {label}</b><h3>{title}</h3><p>{copy}</p><strong>{evidence}</strong><small>{english}</small></article>)}</div></section>}
     {section === 'contact' && <section className="portfolio-page contact-page"><button className="return" onClick={() => setSection('home')}>← 返回封面</button><div className="contact-layout"><div><small>LET'S TALK</small><h2>如果你在意<br /><em>真实的完成度</em>。</h2><p className="contact-hook">数据能说明结果，过程能说明一个人。</p></div><div className="contact-card"><h3>夏瑶雯</h3><strong>项目执行 / 数据分析学习者</strong><p>擅长把调研、信息整理和视觉表达接成一个完整交付。</p><div className="contact-numbers"><b>93</b><span>问卷</span><b>3</b><span>类交付</span><b>{visitors}</b><span>位访客</span></div><a href="mailto:18991739840@163.com">18991739840@163.com ↗</a>
-    <a href="https://github.com/1205xia">github.com/1205xia ↗</a><form onSubmit={(e) => { e.preventDefault(); const form = e.currentTarget; const data = new FormData(form); fetch(`${API_BASE}/api/message`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: data.get('name'), content: data.get('content') }) }).then(() => { form.reset(); return fetch(`${API_BASE}/api/messages`) }).then(r => r.json()).then(d => setMessages(d)).catch(() => {}) }} style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}><input name="name" placeholder="你的名字" required style={{ padding: '6px 10px', border: '1px solid #ddd', borderRadius: '4px' }} /><textarea name="content" placeholder="说点什么吧..." required style={{ padding: '6px 10px', border: '1px solid #ddd', borderRadius: '4px', minHeight: '60px' }} /><button type="submit" style={{ padding: '8px 16px', background: '#333', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', width: 'fit-content' }}>留言</button></form>{messages.length > 0 && <div className="contact-messages">{messages.map(message => <article key={`${message.created_at}-${message.name}`}><strong>{message.name}</strong><p>{message.content}</p></article>)}</div>}</div></div></section>}
+    <a href="https://github.com/1205xia">github.com/1205xia ↗</a><form onSubmit={submitMessage} style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}><input name="name" placeholder="你的名字" required style={{ padding: '6px 10px', border: '1px solid #ddd', borderRadius: '4px' }} /><textarea name="content" placeholder="说点什么吧..." required style={{ padding: '6px 10px', border: '1px solid #ddd', borderRadius: '4px', minHeight: '60px' }} /><button type="submit" disabled={submitting} style={{ padding: '8px 16px', background: '#333', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', width: 'fit-content' }}>{submitting ? '提交中…' : '留言'}</button><span role="status" aria-live="polite">{messageStatus}</span></form>{messages.length > 0 && <div className="contact-messages">{messages.map(message => <article key={`${message.created_at}-${message.name}`}><strong>{message.name}</strong><p>{message.content}</p></article>)}</div>}</div></div></section>}
     <nav className="portfolio-nav">{sections.map(item => <button key={item.id} onClick={() => setSection(item.id)}>{item.label}<b>↗</b></button>)}</nav>
     <footer style={{textAlign:'center', fontSize:'12px', color:'#999', padding:'20px 0'}}>Made with React + Vite · Deployed on GitHub Pages · Designed by 夏瑶雯 2026</footer>
   </main>
