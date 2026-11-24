@@ -6,7 +6,7 @@ import './styles.css'
 
 const videoUrl = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260819_212700_3bb9329b-5c50-4257-a09b-ca85cf3654a3.mp4'
 const sections = [{ id: 'about', label: '关于我' }, { id: 'projects', label: '项目经历' }, { id: 'strengths', label: '工作方式' }, { id: 'contact', label: '联系我' }]
-const API_BASE = 'https://portfolio-backend-96cb0.containers.snapdeploy.app'
+const API_BASE = 'https://portfolio-backend-mail-96cb0.containers.snapdeploy.app'
 function App() {
   const [entered, setEntered] = useState(false)
   const [opening, setOpening] = useState(false)
